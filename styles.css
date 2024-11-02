@@ -84,7 +84,7 @@ button:hover {
 .image-side {
    flex: 0 0 60%;
    background-image: url('./assets/mosaic.png');
-   background-size: cover;
+   /* background-size: cover; */
    background-position: center;
    position: relative;
    display: flex;
