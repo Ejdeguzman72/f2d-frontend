@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2D - Events</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+
+<body class="image-side">
+    <header>
+        <nav class="navbar">
+            <div class="logo">F2D App</div>
+            <ul class="nav-links">
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Chat</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="event-list">
+            <h2>Upcoming Events</h2>
+            <div class="event-item">
+                <h3>Event Title 1</h3>
+                <p>Date: January 15, 2025</p>
+                <p>Location: Online</p>
+                <p>Description: Join us for an exciting online event discussing the future of technology.</p>
+                <a href="event-details.html" class="btn">More Details</a>
+            </div>
+            <div class="event-item">
+                <h3>Event Title 2</h3>
+                <p>Date: February 20, 2025</p>
+                <p>Location: Community Center</p>
+                <p>Description: Participate in our community gathering to connect with like-minded individuals.</p>
+                <a href="event-details.html" class="btn">More Details</a>
+            </div>
+            <!-- Add more events as needed -->
+        </section>
+
+        <section class="event-form">
+            <h2>Create New Event</h2>
+            <form id="new-event-form">
+                <label for="event-title">Event Title:</label>
+                <input type="text" id="event-title" name="event-title" required>
+                
+                <label for="event-date">Date:</label>
+                <input type="date" id="event-date" name="event-date" required>
+                
+                <label for="event-location">Location:</label>
+                <input type="text" id="event-location" name="event-location" required>
+                
+                <label for="event-description">Description:</label>
+                <textarea id="event-description" name="event-description" required></textarea>
+                
+                <button type="submit" class="btn">Create Event</button>
+            </form>
+        </section>
+    </main>
+</body>
+<footer>
+    <p>&copy; 2024 Edgar Joseph DeGuzman</p>
+</footer>
+
+</html>
