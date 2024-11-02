@@ -93,21 +93,23 @@ button:hover {
    color: #ffffff;
 }
 
-.image-side::before {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.4); /* Overlay for better text visibility */
-}
-
 .image-side h1 {
    position: relative;
    z-index: 1;
    font-size: 2.8em;
    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.background-image {
+   /* flex: 0 0 60%; */
+   background-image: url('./assets/mosaic.png');
+   background-size: cover;
+   background-position: center;
+   /* position: relative; */
+   /* display: flex; */
+   justify-content: center;
+   align-items: center;
+   color: #ffffff;
 }
 
 /* Navbar styling */
@@ -263,6 +265,61 @@ button:hover {
    background: #0056b3; /* Darker blue on hover */
 }
 
+/* Profile Section Styling */
+.profile-section {
+   padding: 40px 20px;
+   text-align: center;
+   background-color: #fff; /* White background for the profile section */
+   border-radius: 10px; /* Rounded corners */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+   margin: 20px;
+}
+
+.profile-header {
+   margin-bottom: 20px;
+}
+
+.profile-picture {
+   width: 150px;
+   height: 150px;
+   border-radius: 50%; /* Circular profile picture */
+   object-fit: cover; /* Maintain aspect ratio */
+   border: 3px solid #007bff; /* Border color */
+}
+
+.profile-actions {
+   margin-bottom: 20px;
+}
+
+.profile-actions .btn {
+   margin: 0 10px; /* Spacing between buttons */
+}
+
+/* Profile Details Styling */
+.profile-details {
+   padding: 20px;
+   background-color: #f9f9f9; /* Light background for details */
+   border-radius: 10px; /* Rounded corners */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.profile-details h2 {
+   margin-top: 20px;
+   color: #333; /* Dark text for headings */
+}
+
+.profile-details ul {
+   list-style-type: none; /* Remove bullet points */
+   padding: 0; /* Remove padding */
+}
+
+.profile-details li {
+   background: #007bff; /* Background color for list items */
+   color: white; /* Text color */
+   padding: 10px;
+   margin: 5px 0; /* Spacing between items */
+   border-radius: 5px; /* Rounded corners */
+}
 
 /* Footer styling */
 footer {

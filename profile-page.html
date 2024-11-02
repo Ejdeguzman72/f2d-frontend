@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2D - Profile</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body class="background-image">
+    <header>
+        <nav class="navbar">
+            <div class="logo">F2D App</div>
+            <ul class="nav-links">
+                <li><a href="events-page.html">Events</a></li>
+                <li><a href="groups-page.html">Groups</a></li>
+                <li><a href="">Chat</a></li>
+                <li><a href="/profile-page.html">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-section">
+            <div class="profile-header">
+                <img src="./assets/profile-placeholder.png" alt="Profile Picture" class="profile-picture">
+                <h1>Edgar Joseph DeGuzman</h1>
+                <p>Email: edgar@example.com</p>
+                <p>Location: New York, USA</p>
+            </div>
+            <div class="profile-actions">
+                <button class="btn" onclick="editProfile()">Edit Profile</button>
+                <button class="btn" onclick="logout()">Logout</button>
+            </div>
+        </section>
+
+        <section class="profile-details">
+            <h2>About Me</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
+            
+            <h2>Interests</h2>
+            <ul>
+                <li>Technology</li>
+                <li>Travel</li>
+                <li>Photography</li>
+                <li>Gaming</li>
+                <li>Coding</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Edgar Joseph DeGuzman</p>
+    </footer>
+
+    <script>
+        function editProfile() {
+            // Logic to edit profile
+            alert("Edit Profile functionality not implemented yet.");
+        }
+
+        function logout() {
+            // Logic to log out the user
+            alert("Logout functionality not implemented yet.");
+        }
+    </script>
+</body>
+
+</html>
