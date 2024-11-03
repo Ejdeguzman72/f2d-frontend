@@ -325,9 +325,13 @@ button:hover {
 footer {
    background-color: #222;
    color: #fff;
-   text-align: center;
+   text-align: right;
    padding: 15px;
    font-size: 0.9em;
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
 }
 
 /* Media Queries for responsiveness */
