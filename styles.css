@@ -377,7 +377,7 @@ button:hover {
 /* Main content */
 .group-list {
    padding: 20px;
-   background-color: rgba(255, 255, 255, 0.8);
+   background-color: #333;
    margin: 20px auto;
    max-width: 800px;
    border-radius: 10px;
@@ -387,7 +387,7 @@ button:hover {
 .group-list h2 {
    text-align: center;
    margin-bottom: 20px;
-   color: #004d99;
+   color: #007bff;
 }
 
 .group-item {
@@ -398,6 +398,7 @@ button:hover {
    background-color: #f9f9f9;
    transition: transform 0.2s;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   background: linear-gradient(30deg, #333, #fff);
 }
 
 .group-item:hover {
@@ -416,7 +417,7 @@ button:hover {
 .blog-header {
    text-align: center;
    padding: 20px;
-   background: linear-gradient(45deg, #00bfff, #333);
+   background: linear-gradient(45deg, #00bfff, #fff);
    color: #fff;
    border-radius: 10px;
    opacity: 0.8;

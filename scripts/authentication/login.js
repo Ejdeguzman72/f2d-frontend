@@ -1,17 +1,14 @@
 async function login() {
     const username = document.getElementById('username').value;
-    console.log(username)
-    if (username == '') {
-        alert('Username must be filled')
-    }
     const password = document.getElementById('password').value;
-    if (password == '') {
-        alert('Password must be filled');
+
+    if (!username || !password) {
+        alert('Please enter both username and password');
+        return;
     }
 
     try {
-        // Make a request to your authentication API endpoint
-        const response = await fetch('http://localhost:8080/auth/authenticate', {
+        const response = await fetch('http://192.168.1.54:8080/auth/authenticate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,19 +18,19 @@ async function login() {
 
         if (response.ok) {
             const data = await response.json();
-
-            // Store the JWT token in localStorage
-            localStorage.setItem('ejjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', data.accessToken);
-            
-            if (data.accessToken) {
-                // Redirect to the home page (you can replace this with your desired URL)
-                window.location.href = 'home-page.html';
-            }
+            localStorage.setItem('jwtToken', data.accessToken);
+            window.location.href = 'home-page.html';
         } else {
-            // Handle authentication failure
-            console.error('Authentication failed');
+            alert('Authentication failed.');
         }
     } catch (error) {
-        console.error('Error during login:', error.message);
+        console.error('Error during login:', error);
+        alert('An error occurred during login.');
     }
 }
+
+// Prevent default form submission
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    login();
+});
