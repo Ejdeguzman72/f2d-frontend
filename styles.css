@@ -311,7 +311,7 @@ button:hover {
    /* Rounded corners */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    /* Shadow for depth */
-   margin: 20px;
+   margin: 30px;
 }
 
 .profile-header {
@@ -326,6 +326,7 @@ button:hover {
 .profile-header p {
    margin-bottom: 20px;
    color: black;
+   font-size: 25px;
 }
 
 .profile-picture {
@@ -358,6 +359,7 @@ button:hover {
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    /* Subtle shadow */
    color: #333;
+   margin: 30px;
 }
 
 .profile-details div h2 {
@@ -370,7 +372,6 @@ button:hover {
    /* margin-top: 20px; */
    color: #333;
    padding: 10px;
-   text-align: left;
    /* Dark text for headings */
 }
 
