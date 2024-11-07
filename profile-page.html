@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>F2D - Profile</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="scripts/authentication/user-script.js"></script>
 </head>
 
 <body class="background-image">
@@ -27,10 +29,7 @@
     <main>
         <section class="profile-section">
             <div class="profile-header">
-                <img src="./assets/profile-placeholder.png" alt="Profile Picture" class="profile-picture">
-                <h1>Edgar Joseph DeGuzman</h1>
-                <p>Email: edgar@example.com</p>
-                <p>Location: New York, USA</p>
+
             </div>
             <div class="profile-actions">
                 <button class="btn" onclick="editProfile()">Edit Profile</button>
@@ -39,7 +38,7 @@
         </section>
 
         <section class="profile-details">
-            <h2>About Me</h2>
+            <!-- <h2>About Me</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.</p>
             
             <h2>Interests</h2>
@@ -49,23 +48,9 @@
                 <li>Photography</li>
                 <li>Gaming</li>
                 <li>Coding</li>
-            </ul>
+            </ul> -->
         </section>
     </main>
-
-   
-
-    <script>
-        function editProfile() {
-            // Logic to edit profile
-            alert("Edit Profile functionality not implemented yet.");
-        }
-
-        function logout() {
-            // Logic to log out the user
-            alert("Logout functionality not implemented yet.");
-        }
-    </script>
 </body>
 <footer>
     <p>&copy;Edgar Joseph DeGuzman</p>

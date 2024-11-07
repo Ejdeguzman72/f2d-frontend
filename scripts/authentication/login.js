@@ -8,7 +8,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch('http://192.168.1.54:8080/auth/authenticate', {
+        const response = await fetch('http://localhost:8080/auth/authenticate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,8 @@ async function login() {
 
         if (response.ok) {
             const data = await response.json();
-            localStorage.setItem('jwtToken', data.accessToken);
+            console.log(data.token)
+            localStorage.setItem('F2DToken', data.token);
             window.location.href = 'home-page.html';
         } else {
             alert('Authentication failed.');
