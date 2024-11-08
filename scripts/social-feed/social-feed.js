@@ -6,13 +6,13 @@ class SocialFeedRenderer {
     }
 
     init = () => {
-        document.addEventListener('DOMContentLoaded', this.renderEvents); // Corrected method name
+        document.addEventListener('DOMContentLoaded', this.renderSocialFeed);
     }
 
     fetchSocialFeedData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
-            return response.data.list;
+            return response.data.list; // Ensure this matches your API response structure
         } catch (error) {
             console.error('Error fetching event data: ', error);
             throw error;
@@ -20,7 +20,7 @@ class SocialFeedRenderer {
     }
 
     renderSocialFeedItem = (message) => {
-        const messageItem = document.querySelector('blog-posts')
+        const messageItem = document.createElement('div'); // Create a new div
         messageItem.classList.add('post');
 
         messageItem.innerHTML = `
@@ -34,16 +34,16 @@ class SocialFeedRenderer {
         const socialFeedListContainer = document.querySelector(this.containerSelector);
         try {
             const socialFeedItems = await this.fetchSocialFeedData();
-            console.log('this is social feed data: ', socialFeedItems); // Use a comma for better formatting
+            console.log('This is social feed data:', socialFeedItems);
             socialFeedItems.forEach(item => {
-                const socialFeedMessage = this.renderSocialFeedItem(item); // Corrected method name
+                const socialFeedMessage = this.renderSocialFeedItem(item);
                 socialFeedListContainer.appendChild(socialFeedMessage);
             });
         } catch (error) {
-            socialFeedListContainer.innerHTML = '<p>Failed to load social feed. Please try again</p>';
+            socialFeedListContainer.innerHTML = '<p>Failed to load social feed. Please try again.</p>';
         }
     }
 }
 
 // Create an instance of the class to render the events
-new EventListRenderer('http://192.168.1.54:8081/group-message/all', '.blog-posts');
+new SocialFeedRenderer('http://192.168.1.54:8081/group-message/all', '.blog-posts');
