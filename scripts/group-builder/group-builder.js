@@ -53,4 +53,4 @@ class GroupRenderer {
 }
 
 // Create an instance of the class to render the groups
-new GroupRenderer('http://localhost:8081/groups/all', '.group-list');
+new GroupRenderer('http://192.168.1.54:8081/groups/all', '.group-list');
