@@ -276,6 +276,7 @@ button:hover {
    /* Space between paragraph elements */
    line-height: 1.4;
    /* Line height for better readability */
+   color: black;
 }
 
 /* Button inside event items */
