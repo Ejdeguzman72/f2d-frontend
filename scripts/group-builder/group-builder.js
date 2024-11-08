@@ -38,17 +38,19 @@ class GroupRenderer {
     renderGroups = async () => {
         const groupListContainer = document.querySelector(this.containerSelector);
 
-        try {
+        // try {
             const groups = await this.fetchGroupData();
             groups.forEach(group => {
                 const groupItem = this.createGroupItem(group);
                 groupListContainer.appendChild(groupItem);
             });
-        } catch (error) {
-            groupListContainer.innerHTML = '<p>Failed to load groups. Please try again later.</p>';
-        }
+        // } 
+        // catch (error) {
+        //     console.log(error);
+        //     groupListContainer.innerHTML = '<p>Failed to load groups. Please try again later.</p>';
+        // }
     }
 }
 
 // Create an instance of the class to render the groups
-new GroupRenderer('http://192.168.1.54:8081/groups/all', '.group-list');
+new GroupRenderer('http://localhost:8081/groups/all', '.group-list');
