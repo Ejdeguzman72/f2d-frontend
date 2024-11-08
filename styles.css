@@ -257,6 +257,7 @@ button:hover {
    /* Light background for event items */
    transition: box-shadow 0.3s ease;
    /* Smooth transition for hover effects */
+   transform: translateY(-5px);
 }
 
 .event-item:hover {
