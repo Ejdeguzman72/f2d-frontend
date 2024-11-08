@@ -61,4 +61,4 @@ class ChatGroupRenderer {
 }
 
 // Create an instance of the class to render the groups
-new ChatGroupRenderer('http://localhost:8083/chat-groups/all', '.chat-container');
+new ChatGroupRenderer('http://192.168.1.54:8083/chat-groups/all', '.chat-container');
