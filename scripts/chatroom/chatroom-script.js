@@ -7,9 +7,8 @@ class ChatGroupRenderer {
 
     // Initialize the renderer
     init() {
-        // Directly call renderChatGroups if document is already loaded
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', this.renderChatGroups);
+            document.addEventListener('DOMContentLoaded', this.renderChatGroups.bind(this));
         } else {
             this.renderChatGroups();
         }
@@ -19,7 +18,7 @@ class ChatGroupRenderer {
     async fetchChatGroupData() {
         try {
             const response = await axios.get(this.apiUrl);
-            return response.data.list; // Adjust this to match your API structure
+            return response.data.list; // Adjust based on API structure
         } catch (error) {
             console.error('Error fetching chat group data:', error);
             throw error;
@@ -41,7 +40,6 @@ class ChatGroupRenderer {
     // Render chat groups into the container
     async renderChatGroups() {
         const chatGroupListContainer = document.querySelector(this.containerSelector);
-
         if (!chatGroupListContainer) {
             console.error(`Container with selector "${this.containerSelector}" not found.`);
             return;
@@ -54,7 +52,7 @@ class ChatGroupRenderer {
                 chatGroupListContainer.appendChild(chatGroupItem);
             });
         } catch (error) {
-            console.log('Rendering error:', error);
+            console.log(error);
             chatGroupListContainer.innerHTML = '<p>Failed to load chat groups. Please try again later.</p>';
         }
     }

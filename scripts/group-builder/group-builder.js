@@ -12,6 +12,7 @@ class GroupRenderer {
     fetchGroupData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
+            console.log(response)
             return response.data.list;
         } catch (error) {
             console.error('Error fetching group data:', error);
@@ -28,7 +29,7 @@ class GroupRenderer {
             <p>Type: ${group.groupType}</p>
             <p>Created on: ${group.createTime}</p>
             <p>Members: ${group.userIdSet.length}</p>
-            <p>Description: ${group.chatGroup.groupName}</p>
+            <p>Description: ${group.groupName}</p>
             <a href="group-details.html?groupId=${group.groupId}" class="btn">View Group</a>
         `;
 
