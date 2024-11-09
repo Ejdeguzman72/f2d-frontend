@@ -37,7 +37,7 @@ class GroupRenderer {
 
     renderGroups = async () => {
         const groupListContainer = document.querySelector(this.containerSelector);
-
+        console.log(groupListContainer);
         try {
             const groups = await this.fetchGroupData();
             groups.forEach(group => {
