@@ -257,7 +257,8 @@ button:hover {
    /* Light background for event items */
    transition: box-shadow 0.3s ease;
    /* Smooth transition for hover effects */
-   transform: translateY(-5px);
+   transform: scale(1.02);
+   margin: 20px;
 }
 
 .event-item:hover {
@@ -471,7 +472,7 @@ button:hover {
    border: 1px solid #ddd;
    border-radius: 10px;
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-   transition: box-shadow 0.3s;
+   transform: scale(1.02);
    color: black;
 }
 

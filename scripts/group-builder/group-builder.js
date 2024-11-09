@@ -27,9 +27,7 @@ class GroupRenderer {
         groupItem.innerHTML = `
             <h3>${group.groupName}</h3>
             <p>Type: ${group.groupType}</p>
-            <p>Created on: ${group.createTime}</p>
             <p>Members: ${group.userIdSet.length}</p>
-            <p>Description: ${group.groupName}</p>
             <a href="group-details.html?groupId=${group.groupId}" class="btn">View Group</a>
         `;
 
