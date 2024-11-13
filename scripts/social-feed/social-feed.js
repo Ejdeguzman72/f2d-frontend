@@ -24,7 +24,8 @@ class SocialFeedRenderer {
         messageItem.classList.add('post');
 
         messageItem.innerHTML = `
-            <h3>${message.content}</h3>
+            <h2>${message.title}</h2>
+            <p>${message.content}</p>
         `;
 
         return messageItem;
