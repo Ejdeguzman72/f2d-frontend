@@ -82,6 +82,94 @@ button:hover {
    transform: scale(1.05);
 }
 
+.add-button-container button {
+   margin: 20px;
+
+}
+
+/* Modal container */
+.modal {
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1000; /* Sit on top */
+   left: 0;
+   top: 0;
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+/* Modal content box */
+.add-modal-content {
+   background-color: #fefefe;
+   margin: 10% auto; /* 10% from the top and centered */
+   padding: 20px;
+   border: 1px solid #888;
+   border-radius: 8px;
+   width: 50%; /* Width of the modal */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   animation: fadeIn 0.3s; /* Optional fade-in animation */
+}
+
+.add-modal-content h2{
+  color: black;
+  text-align: center;
+}
+
+/* Close button (X) */
+.close-button {
+   color: #aaa;
+   float: right;
+   font-size: 28px;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+   color: #000;
+   text-decoration: none;
+}
+
+/* Input fields styling */
+.modal-body .input,
+.modal-body .textarea {
+   width: calc(100% - 20px); /* Fill the modal width, with padding adjustment */
+   padding: 10px;
+   margin: 10px 0;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+   box-sizing: border-box;
+}
+
+/* Submit button */
+.add-button {
+   background-color: #4caf50;
+   color: white;
+   padding: 10px 20px;
+   margin: 10px 0;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 16px;
+}
+
+.add-button:hover {
+   background-color: #45a049;
+}
+
+/* Modal fade-in animation */
+@keyframes fadeIn {
+   from {
+       opacity: 0;
+   }
+   to {
+       opacity: 1;
+   }
+}
+
 /* Image side styling */
 .image-side {
    flex: 0 0 60%;
@@ -112,6 +200,7 @@ button:hover {
    justify-content: center;
    align-items: center;
    color: #ffffff;
+   height: 100vh;
 }
 
 /* Navbar styling */
@@ -315,11 +404,6 @@ button:hover {
 .event-list h2 {
    color: #007bff;
    margin: 10px;
-}
-
-.event-button-container button {
-   margin: 20px;
-
 }
 
 .event-item {

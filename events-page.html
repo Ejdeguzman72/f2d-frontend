@@ -7,7 +7,8 @@
     <title>F2D - Events</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="scripts/events/events-script.js"></script>
+    <script src="scripts/events/list-events-script.js"></script>
+    <script src="scripts/events/add-event.js"></script>
 </head>
 
 <body class="background-image">
@@ -28,13 +29,19 @@
         <section class="event-list">
             <h2>Upcoming Events</h2>
         </section>
-        <div class="event-button-container">
-            <button>Add New Event</button>
+        <div class="add-button-container">
+            <button id="add-event-button">New Event</button>
+        </div>
+        <div id="myAddModal" class="modal">
+            <div class="add-modal-content">
+                <span id="addModalCloseBtn" class="close-button">&times;</span>
+                <div id="addModalContent"></div>
+            </div>
         </div>
     </main>
 </body>
 <footer>
     <p>&copy;Edgar Joseph DeGuzman</p>
 </footer>
-</html>
 
+</html>
