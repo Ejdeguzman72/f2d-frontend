@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="scripts/group-builder/group-builder.js"></script>
+    <script src="scripts/group-builder/list-group-builder.js"></script>
+    <script src="scripts/group-builder/add-group.js"></script>
 </head>
 
 <body class="background-image">
@@ -29,7 +30,13 @@
             <h2>Your Groups</h2>
         </section>
         <div class="add-button-container">
-            <button>New Group</button>
+            <button id="add-event-button">New Group</button>
+        </div>
+        <div id="myAddModal" class="modal">
+            <div class="add-modal-content">
+                <span id="addModalCloseBtn" class="close-button">&times;</span>
+                <div id="addModalContent"></div>
+            </div>
         </div>
     </main>
    
