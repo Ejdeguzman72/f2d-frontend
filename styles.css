@@ -113,8 +113,12 @@ button:hover {
 }
 
 .add-modal-content h2{
-  color: black;
+   background-color: #000;
+  color: white;
   text-align: center;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;;
 }
 
 /* Close button (X) */
@@ -124,6 +128,7 @@ button:hover {
    font-size: 28px;
    font-weight: bold;
    cursor: pointer;
+   margin: 20px;
 }
 
 .close-button:hover,
@@ -296,7 +301,7 @@ button:hover {
    /* Adjust based on the header height */
    display: flex;
    flex-direction: column;
-   /* justify-content: center; */
+   justify-content: center;
    align-items: center;
 }
 
