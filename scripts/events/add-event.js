@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         addModalContent.innerHTML = `
         <h2>Create New Event</h2><hr />
         <div class="modal-body">
-            <input class="input" type="text" name="title" placeholder="Name of Event" />
-            <input class="input" type="text" name="author" placeholder="Event Type" /><br />
+            <input class="input" type="text" name="eventName" placeholder="Name of Event" />
+            <input class="input" type="text" name="eventType" placeholder="Event Type" /><br />
             <textarea class="textarea" cols="50" rows="5" placeholder="Description"></textarea><br />
-             <input class="input" type="date" name="cDate" placeholder="Date" /><br />
+             <input class="input" type="date" name="eventDate" placeholder="Date" /><br />
         </div><hr />
         <button id="submitBtn" class="add-button">Submit</button><br /><br />
     `;
@@ -44,38 +44,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitInfo = async () => {
         try {
             // Get book information from the form
-            const title = document.querySelector('input[name="title"]').value;
-            const author = document.querySelector('input[name="author"]').value;
+            const eventName = document.querySelector('input[name="eventName"]').value;
+            const eventType = document.querySelector('input[name="eventType"]').value;
             const description = document.querySelector('textarea').value;
+            const eventDate = document.querySelector('input[name="eventDate"]').value;
 
             // Validate required fields
-            if (!title || !author || !description) {
+            if (!eventName || !eventType || !description || !eventDate) {
                 throw new Error('Please fill in all required fields.');
             }
 
-            const bookData = { title, author, descr: description };
-            const jwtToken = await retrieveJwt();
+            const data = { eventName, eventType, description, eventDate };
+            // const jwtToken = await retrieveJwt();
 
-            const axiosWithToken = axios.create({
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            // const axiosWithToken = axios.create({
+            //     headers: {
+            //         Authorization: `Bearer ${jwtToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
 
-            // POST request to add book
-            const response = await axiosWithToken.post('http://192.168.1.36:8080/app/books/add', bookData);
-            console.log('Book added successfully:', response.data);
+            // POST request to add event
+            const response = await axios.post('http://192.168.1.54:8082/events/create', data);
+            console.log('Event created successfully:', response.data);
 
             // Close the modal
             myAddModal.style.display = 'none';
 
-            // Update book list
-            const books = await fetchBookList();
-            renderBookList(books, currentPage);
-            renderPagination();
+           window.location.reload();
         } catch (error) {
-            console.error('Error submitting book information:', error.message);
+            console.error('Error submitting event information:', error.message);
         }
     };
 });

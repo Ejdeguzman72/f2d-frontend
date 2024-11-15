@@ -28,7 +28,6 @@ class EventListRenderer {
             <p>Type: ${eventDetails.eventType}</p>
             <p>Description: ${eventDetails.description}</p>
             <p>Date: ${eventDetails.eventDate}</p>
-            <p>Group: ${eventDetails.f2dGroup.groupName}</p>
         `;
 
         return eventItem;
@@ -44,6 +43,7 @@ class EventListRenderer {
                 eventListContainer.appendChild(eventItem);
             });
         } catch (error) {
+            console.log(error)
             eventListContainer.innerHTML = '<p>Failed to load events. Please try again</p>';
         }
     }

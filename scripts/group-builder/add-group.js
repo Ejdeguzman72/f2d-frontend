@@ -42,38 +42,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitInfo = async () => {
         try {
             // Get book information from the form
-            const title = document.querySelector('input[name="title"]').value;
-            const author = document.querySelector('input[name="author"]').value;
-            const description = document.querySelector('textarea').value;
+            const groupName = document.querySelector('input[name="groupName"]').value;
+            const groupType = document.querySelector('input[name="groupType"]').value;
 
             // Validate required fields
-            if (!title || !author || !description) {
+            if (!groupName || !groupType) {
                 throw new Error('Please fill in all required fields.');
             }
 
-            const bookData = { title, author, descr: description };
-            const jwtToken = await retrieveJwt();
+            const data = { groupName,groupType };
+            // const jwtToken = await retrieveJwt();
 
-            const axiosWithToken = axios.create({
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            // const axiosWithToken = axios.create({
+            //     headers: {
+            //         Authorization: `Bearer ${jwtToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
 
             // POST request to add book
-            const response = await axiosWithToken.post('http://192.168.1.36:8080/app/books/add', bookData);
-            console.log('Book added successfully:', response.data);
+            const response = await axios.post('http://192.168.1.54:8081/groups/create', data);
+            console.log('Group created successfully:', response.data);
 
             // Close the modal
             myAddModal.style.display = 'none';
 
-            // Update book list
-            const books = await fetchBookList();
-            renderBookList(books, currentPage);
-            renderPagination();
+            window.location.reload();
         } catch (error) {
-            console.error('Error submitting book information:', error.message);
+            console.error('Error submitting group information:', error.message);
         }
     };
 });
