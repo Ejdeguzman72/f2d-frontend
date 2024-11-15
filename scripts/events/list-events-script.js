@@ -28,6 +28,7 @@ class EventListRenderer {
             <p>Type: ${eventDetails.eventType}</p>
             <p>Description: ${eventDetails.description}</p>
             <p>Date: ${eventDetails.eventDate}</p>
+            <p>Group: ${eventDetails.f2dGroup.groupName}</p>
         `;
 
         return eventItem;

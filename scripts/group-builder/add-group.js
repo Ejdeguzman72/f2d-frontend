@@ -9,6 +9,34 @@ document.addEventListener('DOMContentLoaded', () => {
         openAddModal();
     });
 
+    const fetchGroups = async () => {
+        try {
+            // const jwtToken = await retrieveJwt();
+    
+            // const axiosWithToken = axios.create({
+            //     headers: {
+            //         'Authorization': `Bearer ${jwtToken}`,
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
+            // const response = await axiosWithToken.get('http://192.168.1.36:8080/app/entertainment-types/all');
+            const response = await axios.get('http://192.168.1.54:8081/groups/all');
+            groups = response.data.list; // Store groups in state
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    };
+
+    const renderGroupsDropdown = () => {
+        groupsDropdown.innerHTML = '';
+
+        groups.forEach(group => {
+            const option = document.createElement('option');
+            option.value = group.groupdId;
+            option.text = group.groupName;
+        });
+    }
+
     const openAddModal = () => {
         // Clear the modal content (if needed)
         addModalContent.innerHTML = `
