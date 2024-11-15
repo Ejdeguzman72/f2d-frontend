@@ -139,7 +139,8 @@ button:hover {
 
 /* Input fields styling */
 .modal-body .input,
-.modal-body .textarea {
+.modal-body .textarea,
+.modal-body select {
    width: calc(100% - 20px); /* Fill the modal width, with padding adjustment */
    padding: 10px;
    margin: 10px 0;

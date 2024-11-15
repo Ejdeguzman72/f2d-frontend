@@ -3,20 +3,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const myAddModal = document.getElementById('myAddModal');
     const addModalCloseBtn = document.getElementById('addModalCloseBtn');
     const addModalContent = document.getElementById('addModalContent');
+    let groupsDropdown;
+    let f2dAnnouncementGroup = [];
 
-    // Function to open the modal
-    const openAddModal = () => {
-        if (!addModalContent || !myAddModal) return;
+    // Fetch groups from the API
+    const fetchGroups = async () => {
+        try {
+            const response = await axios.get('http://192.168.1.54:8081/groups/all');
+            groups = response.data.list; // Store groups in state
+    
+            const specificGroupName = "F2D ANNOUNCEMENT GROUP";
+    
+            // Filter groups based on the specific name
+            f2dAnnouncementGroup = groups.filter(group => group.groupName === specificGroupName);
+        } catch (error) {
+            console.error('Error fetching groups:', error);
+        }
+    };    
 
-        // Populate the modal content
+    // Render groups dropdown options
+    const renderGroupsDropdown = () => {
+        groupsDropdown.innerHTML = ''; // Clear existing options
+
+        f2dAnnouncementGroup.forEach(group => {
+            const option = document.createElement('option');
+            option.value = group.groupId; // Ensure correct groupId field
+            option.text = group.groupName;
+            groupsDropdown.appendChild(option);
+        });
+    };
+
+    // Open the modal
+    const openAddModal = async () => {
+        await fetchGroups(); // Fetch groups before showing modal
+
+        // Populate modal content
         addModalContent.innerHTML = `
             <h2>Create New Announcement</h2><hr />
             <div class="modal-body">
                 <input class="input" type="text" name="title" placeholder="Title" />
                 <textarea class="textarea" cols="50" rows="5" name="content" placeholder="Write Announcement"></textarea><br />
+                <label for="groupsDropdown">Select Groups:</label>
+                <select id="groupsDropdown" name="groupId"></select>
+                <br><br>
             </div><hr />
             <button id="submitBtn" class="add-button">Submit</button><br /><br />
         `;
+
+        groupsDropdown = document.getElementById('groupsDropdown');
+        renderGroupsDropdown(); // Populate dropdown with groups
 
         // Add event listener for the submit button
         const submitBtn = document.getElementById('submitBtn');
@@ -24,38 +59,32 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.addEventListener('click', submitInfo);
         }
 
-        myAddModal.style.display = 'block';
+        myAddModal.style.display = 'block'; // Show the modal
     };
 
-    // Function to submit the information
+    // Submit announcement information
     const submitInfo = async () => {
         try {
-            const titleInput = document.querySelector('input[name="title"]');
-            const contentTextarea = document.querySelector('textarea[name="content"]');
-
-            if (!titleInput || !contentTextarea) {
-                throw new Error('Unable to find form inputs.');
-            }
-
-            const title = titleInput.value.trim();
-            const content = contentTextarea.value.trim();
+            const title = document.querySelector('input[name="title"]').value.trim();
+            const content = document.querySelector('textarea[name="content"]').value.trim();
+            const groupId = document.querySelector('select[name="groupId"]').value;
 
             // Validate required fields
-            if (!title || !content) {
+            if (!title || !content || !groupId) {
                 alert('Please fill in all required fields.');
                 return;
             }
 
-            const data = { title, content };
+            const data = { title, content, groupId };
 
-            // Send POST request
+            // POST request to create the announcement
             const response = await axios.post('http://192.168.1.54:8081/group-message/create', data);
 
-            // Close the modal
-            if (myAddModal) {
-                myAddModal.style.display = 'none';
-                window.location.reload();
-            }
+            console.log('Announcement created successfully:', response.data);
+
+            // Close the modal and refresh the page
+            myAddModal.style.display = 'none';
+            window.location.reload();
         } catch (error) {
             console.error('Error submitting announcement information:', error.message);
             alert('Failed to create the announcement. Please try again.');
