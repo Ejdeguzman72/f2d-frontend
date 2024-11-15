@@ -4,78 +4,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const addModalCloseBtn = document.getElementById('addModalCloseBtn');
     const addModalContent = document.getElementById('addModalContent');
 
-    // Open modal when add button is clicked
-    addEventButton.addEventListener('click', () => {
-        openAddModal();
-    });
-
+    // Function to open the modal
     const openAddModal = () => {
-        // Clear the modal content (if needed)
-        addModalContent.innerHTML = `
-        <h2>Create New Announcement</h2><hr />
-        <div class="modal-body">
-            <input class="input" type="text" name="title" placeholder="Name of Event" />
-            <input class="input" type="text" name="author" placeholder="Event Type" /><br />
-            <textarea class="textarea" cols="50" rows="5" placeholder="Description"></textarea><br />
-             <input class="input" type="date" name="cDate" placeholder="Date" /><br />
-        </div><hr />
-        <button id="submitBtn" class="add-button">Submit</button><br /><br />
-    `;
+        if (!addModalContent || !myAddModal) return;
 
-        // Add event listener for submit button after DOM update
+        // Populate the modal content
+        addModalContent.innerHTML = `
+            <h2>Create New Announcement</h2><hr />
+            <div class="modal-body">
+                <input class="input" type="text" name="title" placeholder="Title" />
+                <textarea class="textarea" cols="50" rows="5" name="content" placeholder="Write Announcement"></textarea><br />
+            </div><hr />
+            <button id="submitBtn" class="add-button">Submit</button><br /><br />
+        `;
+
+        // Add event listener for the submit button
         const submitBtn = document.getElementById('submitBtn');
-        submitBtn.addEventListener('click', () => submitInfo());
+        if (submitBtn) {
+            submitBtn.addEventListener('click', submitInfo);
+        }
 
         myAddModal.style.display = 'block';
     };
 
-    // Close modal when close button is clicked
-    addModalCloseBtn.onclick = () => {
-        myAddModal.style.display = 'none';
-    };
+    // Function to submit the information
+    const submitInfo = async () => {
+        try {
+            const titleInput = document.querySelector('input[name="title"]');
+            const contentTextarea = document.querySelector('textarea[name="content"]');
 
-    // Close modal if clicked outside the modal
-    window.onclick = (event) => {
-        if (event.target === myAddModal) {
-            myAddModal.style.display = 'none';
+            if (!titleInput || !contentTextarea) {
+                throw new Error('Unable to find form inputs.');
+            }
+
+            const title = titleInput.value.trim();
+            const content = contentTextarea.value.trim();
+
+            // Validate required fields
+            if (!title || !content) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const data = { title, content };
+
+            // Send POST request
+            const response = await axios.post('http://192.168.1.54:8081/group-message/create', data);
+
+            // Close the modal
+            if (myAddModal) {
+                myAddModal.style.display = 'none';
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error submitting announcement information:', error.message);
+            alert('Failed to create the announcement. Please try again.');
         }
     };
 
-    const submitInfo = async () => {
-        try {
-            // Get book information from the form
-            const title = document.querySelector('input[name="title"]').value;
-            const author = document.querySelector('input[name="author"]').value;
-            const description = document.querySelector('textarea').value;
+    // Event listener for the add button
+    if (addEventButton) {
+        addEventButton.addEventListener('click', openAddModal);
+    }
 
-            // Validate required fields
-            if (!title || !author || !description) {
-                throw new Error('Please fill in all required fields.');
+    // Event listener for the close button
+    if (addModalCloseBtn) {
+        addModalCloseBtn.onclick = () => {
+            if (myAddModal) {
+                myAddModal.style.display = 'none';
             }
+        };
+    }
 
-            const bookData = { title, author, descr: description };
-            const jwtToken = await retrieveJwt();
-
-            const axiosWithToken = axios.create({
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            // POST request to add book
-            const response = await axiosWithToken.post('http://192.168.1.36:8080/app/books/add', bookData);
-            console.log('Book added successfully:', response.data);
-
-            // Close the modal
+    // Event listener for clicking outside the modal
+    window.onclick = (event) => {
+        if (myAddModal && event.target === myAddModal) {
             myAddModal.style.display = 'none';
-
-            // Update book list
-            const books = await fetchBookList();
-            renderBookList(books, currentPage);
-            renderPagination();
-        } catch (error) {
-            console.error('Error submitting book information:', error.message);
         }
     };
 });
