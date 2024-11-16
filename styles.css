@@ -206,7 +206,7 @@ button:hover {
    justify-content: center;
    align-items: center;
    color: #ffffff;
-   height: 110vh;
+   height: 500vh;
 }
 
 /* Navbar styling */
@@ -740,6 +740,33 @@ button:hover {
 
 .send-btn:hover {
    background-color: #006bb3;
+}
+
+.pagination-container {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   margin-top: 20px;
+}
+
+.pagination-container button {
+   padding: 8px 12px;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 14px;
+}
+
+.pagination-container button:disabled {
+   background-color: #d3d3d3;
+   cursor: not-allowed;
+}
+
+.pagination-container button.active {
+   background-color: #0056b3;
+   font-weight: bold;
 }
 
 /* Footer styling */
