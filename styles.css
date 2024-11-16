@@ -419,7 +419,7 @@ button:hover {
    /* Light border around event items */
    border-radius: 5px;
    /* Rounded corners */
-   margin-bottom: 15px;
+   /* margin-bottom: 15px; */
    /* Space between individual event items */
    background: #343434;
    /* Light background for event items */
@@ -570,7 +570,7 @@ button:hover {
 .group-list {
    padding: 20px;
    /* background-color: #333; */
-   margin: 25px auto;
+   /* margin: 25px auto; */
    /* max-width: 850px; */
    border-radius: 10px;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
