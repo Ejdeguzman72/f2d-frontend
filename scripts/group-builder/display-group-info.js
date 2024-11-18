@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div>
           <span class="label">Last Updated:</span>
           <div class="value">${group.lastUpdateTime}</div>
-        </div>
+        </div><br>
         <div class="header">Chat Group Details</div>
         <div>
           <span class="label">Chat Group ID:</span>

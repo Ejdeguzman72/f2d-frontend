@@ -628,7 +628,7 @@ button:hover {
    font-size: 20px;
    font-weight: bold;
    margin-bottom: 15px;
-   color: gray;
+   color: #007bff;
  }
  #groupDetailsContainer .label {
    font-size: 14px;
