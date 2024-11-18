@@ -13,6 +13,12 @@ html {
    /* Light background for better contrast */
 }
 
+/* Main container */
+.container {
+   display: flex;
+   height: 100vh;
+}
+
 /* Login form styling */
 .login-form {
    flex: 0 0 40%;
@@ -83,47 +89,36 @@ button:hover {
 
 /* Modal container */
 .modal {
-   display: none;
-   /* Hidden by default */
-   position: fixed;
-   /* Stay in place */
-   z-index: 1000;
-   /* Sit on top */
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1000; /* Sit on top */
    left: 0;
    top: 0;
-   width: 100%;
-   /* Full width */
-   height: 100%;
-   /* Full height */
-   overflow: auto;
-   /* Enable scroll if needed */
-   background-color: rgba(0, 0, 0, 0.5);
-   /* Black w/ opacity */
+   width: 100%; /* Full width */
+   height: 100%; /* Full height */
+   overflow: auto; /* Enable scroll if needed */
+   background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
 
 /* Modal content box */
 .add-modal-content {
    background-color: #fefefe;
-   margin: 10% auto;
-   /* 10% from the top and centered */
+   margin: 10% auto; /* 10% from the top and centered */
    padding: 20px;
    border: 1px solid #888;
    border-radius: 8px;
-   width: 50%;
-   /* Width of the modal */
+   width: 50%; /* Width of the modal */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   animation: fadeIn 0.3s;
-   /* Optional fade-in animation */
+   animation: fadeIn 0.3s; /* Optional fade-in animation */
 }
 
-.add-modal-content h2 {
+.add-modal-content h2{
    background-color: #000;
-   color: white;
-   text-align: center;
-   padding: 20px;
-   margin: 10px;
-   border-radius: 10px;
-   ;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;;
 }
 
 /* Close button (X) */
@@ -146,8 +141,7 @@ button:hover {
 .modal-body .input,
 .modal-body .textarea,
 .modal-body select {
-   width: calc(100% - 20px);
-   /* Fill the modal width, with padding adjustment */
+   width: calc(100% - 20px); /* Fill the modal width, with padding adjustment */
    padding: 10px;
    margin: 10px 0;
    border: 1px solid #ccc;
@@ -175,11 +169,10 @@ button:hover {
 /* Modal fade-in animation */
 @keyframes fadeIn {
    from {
-      opacity: 0;
+       opacity: 0;
    }
-
    to {
-      opacity: 1;
+       opacity: 1;
    }
 }
 
@@ -218,17 +211,12 @@ button:hover {
 
 /* Navbar styling */
 .navbar {
-   position: fixed; /* Keeps the navbar fixed at the top */
-   top: 0; /* Aligns it to the top of the page */
-   left: 0;
    display: flex;
    justify-content: space-between;
    align-items: center;
    background-color: #1a1a1a;
    /* Darker background for navbar */
    padding: 15px 30px;
-   width: 100%;
-   z-index: 1000; /* Ensures it stays above other elements */
 }
 
 .navbar .logo {
@@ -619,8 +607,6 @@ button:hover {
    margin: 5px 0;
    color: white;
 }
-
-/* Styling for #groupDetailsContainer */
 #groupDetailsContainer {
    max-width: 1500px; /* Adjust width as needed */
    width: 100%; /* Ensure responsiveness */
@@ -639,7 +625,7 @@ button:hover {
    font-size: 20px;
    font-weight: bold;
    margin-bottom: 15px;
-   color: #333;
+   color: gray;
  }
  #groupDetailsContainer .label {
    font-size: 14px;
@@ -659,42 +645,6 @@ button:hover {
    height: 100vh;
 }
 
-/* Fixed Left Sidebar */
-.left-sidebar {
-   position: fixed;
-   left: 0;
-   top: 60px;
-   width: 350px;
-   height: calc(100vh - 60px); /* Full height minus navbar height */
-   background-color: #333;
-   padding: 20px;
-   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-   overflow-y: auto;
-   z-index: 1000;
-   border: 1px solid white;
-   border-radius: 10px;
- }
- 
- .left-sidebar h2 {
-   font-size: 18px;
-   margin-bottom: 10px;
-   color: gray;
- }
- 
- .left-sidebar p {
-   font-size: 14px;
-   color: white;
- }
- 
- .left-sidebar ul {
-   padding-left: 20px;
- }
- 
- .left-sidebar li {
-   margin-bottom: 8px;
-   font-size: 14px;
-   color: white;
- }
 
 /* Blog Header */
 .blog-header {
