@@ -608,18 +608,21 @@ button:hover {
    color: white;
 }
 #groupDetailsContainer {
-   max-width: 1500px; /* Adjust width as needed */
    width: 100%; /* Ensure responsiveness */
-   margin: 0 auto; /* Center horizontally if needed */
    padding: 30px;
    background: #343434;
    border-radius: 8px;
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   font-size: 20px;
+   font-size: 30px;
    color: white;
    border: 1px solid white;
-   position: relative; /* Ensures it respects flow */
+   position: absolute; /* Position relative to the viewport */
+   margin: 20px;
+   top: 50%; /* Move to the vertical center */
+   left: 50%; /* Move to the horizontal center */
+   transform: translate(-50%, -50%); /* Offset to perfectly center */
 }
+
 
 #groupDetailsContainer .header {
    font-size: 20px;
