@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   let groupData = {};
+  const groupIdSearchParam = new URLSearchParams(window.location.search).get("groupId");
 
-  const retrieveGroupData = async (groupId) => {
+  const retrieveGroupData = async () => {
     try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const groupIdSearchParam = urlParams.get("groupId");
       const response = await axios.get(`http://192.168.1.54:8081/groups/search/id/${groupIdSearchParam}`);
       return response.data.f2dGroup;
     } catch (error) {

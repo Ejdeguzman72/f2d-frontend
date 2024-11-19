@@ -648,6 +648,43 @@ button:hover {
    height: 100vh;
 }
 
+#groupEventsContainer {
+   background: #343434;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   font-size: 30px;
+   color: white;
+   border: 1px solid white;
+   position: absolute; /* Position relative to the viewport */
+   margin: 20px;
+   top: 50%; /* Move to the vertical center */
+   left: 50%; /* Move to the horizontal center */
+   transform: translate(-50%, -50%); /* Offset to perfectly center */
+}
+
+#groupEventsContainer .header {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 15px;
+   color: #007bff;
+ }
+ #groupEventsContainer .label {
+   font-size: 14px;
+   color: gray;
+   margin-top: 10px;
+ }
+ #groupEventsContainer .value {
+   font-size: 16px;
+   font-weight: 600;
+   color: white;
+   margin-top: 5px;
+ }
+
+/* Main container */
+#groupEventsContainer .container {
+   display: flex;
+   height: 100vh;
+}
 
 /* Blog Header */
 .blog-header {
