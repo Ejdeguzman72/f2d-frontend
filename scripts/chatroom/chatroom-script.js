@@ -1,62 +1,66 @@
-class ChatGroupRenderer {
-    constructor(apiUrl, containerSelector) {
-        this.apiUrl = apiUrl;
-        this.containerSelector = containerSelector;
-        this.init();
+// Establish a WebSocket connection
+const socket = new WebSocket('ws://192.168.1.54:8083/ws/default');
+
+// Log when the WebSocket connection is opened
+socket.onopen = () => {
+    console.log('WebSocket connection established');
+};
+
+// Handle incoming messages
+socket.onmessage = (event) => {
+    console.log("Raw message:", event.data);
+
+    try {
+        // Attempt to parse the message as JSON
+        const chatMessage = JSON.parse(event.data);
+
+        // Display the parsed message
+        displayMessage(chatMessage.sender, chatMessage.content, chatMessage.timestamp);
+    } catch (e) {
+        // Log the error and handle non-JSON messages as plain text
+        console.error("Failed to parse JSON:", e);
+
+        // Display the raw message with a default timestamp
+        displayMessage("Server", event.data, new Date().toISOString());
     }
+};
 
-    // Initialize the renderer
-    init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', this.renderChatGroups.bind(this));
-        } else {
-            this.renderChatGroups();
-        }
-    }
+// Log any errors that occur
+socket.onerror = (error) => {
+    console.error('WebSocket error:', error);
+};
 
-    // Fetch chat group data from API
-    async fetchChatGroupData() {
-        try {
-            const response = await axios.get(this.apiUrl);
-            return response.data.list; // Adjust based on API structure
-        } catch (error) {
-            console.error('Error fetching chat group data:', error);
-            throw error;
-        }
-    }
+// Log when the WebSocket connection is closed
+socket.onclose = () => {
+    console.log('WebSocket connection closed');
+};
 
-    // Create an HTML element for a chat group
-    createChatGroupItem(chatGroup) {
-        const chatGroupItem = document.createElement('div');
-        chatGroupItem.classList.add('chat-window');
+// Function to send a message
+document.getElementById('sendButton').addEventListener('click', () => {
+    const messageInput = document.getElementById('messageInput');
+    const message = {
+        sender: 'User', // Replace with dynamic username later
+        content: messageInput.value,
+        timestamp: new Date().toISOString(),
+    };
 
-        chatGroupItem.innerHTML = `
-            <h3>${chatGroup.groupName}</h3>
-        `;
+    // Send the message as a JSON string
+    socket.send(JSON.stringify(message));
+    messageInput.value = ''; // Clear the input field
+});
 
-        return chatGroupItem;
-    }
+// Function to display messages in the chat
+function displayMessage(sender, content, timestamp) {
+    const messagesDiv = document.getElementById('messages');
 
-    // Render chat groups into the container
-    async renderChatGroups() {
-        const chatGroupListContainer = document.querySelector(this.containerSelector);
-        if (!chatGroupListContainer) {
-            console.error(`Container with selector "${this.containerSelector}" not found.`);
-            return;
-        }
+    // Create a new message element
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.textContent = `[${timestamp}] ${sender}: ${content}`;
 
-        try {
-            const chatGroups = await this.fetchChatGroupData();
-            chatGroups.forEach(chatGroup => {
-                const chatGroupItem = this.createChatGroupItem(chatGroup);
-                chatGroupListContainer.appendChild(chatGroupItem);
-            });
-        } catch (error) {
-            console.log(error);
-            chatGroupListContainer.innerHTML = '<p>Failed to load chat groups. Please try again later.</p>';
-        }
-    }
+    // Append the message to the chat container
+    messagesDiv.appendChild(messageElement);
+
+    // Optionally scroll to the bottom of the chat
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
-// Create an instance of the class to render the groups
-new ChatGroupRenderer('http://192.168.1.54:8083/chat-groups/all', '.chat-container');
