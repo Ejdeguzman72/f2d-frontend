@@ -1,53 +1,14 @@
-// Establish a WebSocket connection
-const socket = new WebSocket('ws://192.168.1.54:8083/ws/default');
+// Function to format timestamps
+function formatTimestamp(isoTimestamp) {
+    const date = new Date(isoTimestamp); // Parse ISO string to Date object
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
 
-// Log when the WebSocket connection is opened
-socket.onopen = () => {
-    console.log('WebSocket connection established');
-};
-
-// Handle incoming messages
-socket.onmessage = (event) => {
-    console.log("Raw message:", event.data);
-
-    try {
-        // Attempt to parse the message as JSON
-        const chatMessage = JSON.parse(event.data);
-
-        // Display the parsed message
-        displayMessage(chatMessage.sender, chatMessage.content, chatMessage.timestamp);
-    } catch (e) {
-        // Log the error and handle non-JSON messages as plain text
-        console.error("Failed to parse JSON:", e);
-
-        // Display the raw message with a default timestamp
-        displayMessage("Server", event.data, new Date().toISOString());
-    }
-};
-
-// Log any errors that occur
-socket.onerror = (error) => {
-    console.error('WebSocket error:', error);
-};
-
-// Log when the WebSocket connection is closed
-socket.onclose = () => {
-    console.log('WebSocket connection closed');
-};
-
-// Function to send a message
-document.getElementById('sendButton').addEventListener('click', () => {
-    const messageInput = document.getElementById('messageInput');
-    const message = {
-        sender: 'User', // Replace with dynamic username later
-        content: messageInput.value,
-        timestamp: new Date().toISOString(),
-    };
-
-    // Send the message as a JSON string
-    socket.send(JSON.stringify(message));
-    messageInput.value = ''; // Clear the input field
-});
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
 
 // Function to display messages in the chat
 function displayMessage(sender, content, timestamp) {
@@ -64,3 +25,94 @@ function displayMessage(sender, content, timestamp) {
     // Optionally scroll to the bottom of the chat
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+
+// Function to initialize the WebSocket connection
+function initializeWebSocket() {
+    const token = localStorage.getItem('F2DToken');
+    if (!token) {
+        console.log("Token not found in local storage.");
+        alert('Please log in to use the chat.');
+        return;
+    }
+
+    let username;
+    try {
+        console.log("Decoding JWT token...");
+        const decoded = jwt_decode(token);
+
+        // Check if the token is expired
+        const isExpired = decoded.exp * 1000 < Date.now();
+        if (isExpired) {
+            alert('Session expired. Please log in again.');
+            console.log("Token has expired.");
+            return;
+        }
+
+        console.log("Token is valid. Fetching user details...");
+        username = decoded.sub;
+    } catch (error) {
+        console.error('Failed to decode JWT token:', error);
+        alert('Invalid session. Please log in again.');
+        return;
+    }
+
+    // Establish the WebSocket connection
+    const socket = new WebSocket('ws://192.168.1.54:8083/ws/default');
+
+    // WebSocket event handlers
+    socket.onopen = () => {
+        console.log('WebSocket connection established');
+    };
+
+    socket.onmessage = (event) => {
+        let message;
+
+        try {
+            const jsonStartIndex = event.data.indexOf('{');
+            if (jsonStartIndex !== -1) {
+                const jsonString = event.data.substring(jsonStartIndex);
+                message = JSON.parse(jsonString);
+                console.log('Parsed message:', message);
+
+                // Display the parsed message
+                displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
+            } else {
+                console.warn('No JSON found in message:', event.data);
+            }
+        } catch (e) {
+            console.error("Failed to parse JSON:", e);
+        }
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        alert('Connection error. Please try again later.');
+    };
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed');
+        alert('Connection closed. Please refresh to reconnect.');
+    };
+
+    // Send message handler
+    const sendButton = document.getElementById('sendButton');
+    const messageInput = document.getElementById('messageInput');
+    if (sendButton && messageInput) {
+        sendButton.addEventListener('click', () => {
+            const message = {
+                sender: username,
+                content: messageInput.value,
+                timestamp: new Date().toISOString(),
+            };
+
+            // Send the message as a JSON string
+            socket.send(JSON.stringify(message));
+            messageInput.value = ''; // Clear the input field
+        });
+    } else {
+        console.error('Send button or message input is not found in the DOM.');
+    }
+}
+
+// Initialize WebSocket connection
+initializeWebSocket();
