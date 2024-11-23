@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             groups = response.data.list; // Store groups in state
     
             const specificGroupName = "F2D ANNOUNCEMENT GROUP";
-    
             // Filter groups based on the specific name
             f2dAnnouncementGroup = groups.filter(group => group.groupName === specificGroupName);
         } catch (error) {
@@ -26,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         groupsDropdown.innerHTML = ''; // Clear existing options
 
         f2dAnnouncementGroup.forEach(group => {
+            console.log(group)
             const option = document.createElement('option');
             option.value = group.groupId; // Ensure correct groupId field
             option.text = group.groupName;
