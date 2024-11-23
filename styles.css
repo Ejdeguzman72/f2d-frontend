@@ -607,6 +607,7 @@ button:hover {
    margin: 5px 0;
    color: white;
 }
+
 #groupDetailsContainer {
    width: 100%; /* Ensure responsiveness */
    padding: 30px;
@@ -778,6 +779,7 @@ button:hover {
 
 .message {
    margin-bottom: 10px;
+   font-size: 20px;
 }
 
 .message p {
@@ -806,9 +808,14 @@ button:hover {
    border: 1px solid #ccc;
 }
 
+#messageInput {
+   width: 100%;
+   padding: 20px;
+   margin-bottom: 10px;
+}
 
 #messages {
-   height: 300px;
+   height: 400px;
    overflow-y: auto;
    border: 1px solid #ddd;
    margin-bottom: 10px;
