@@ -484,6 +484,7 @@ button:hover {
    /* Shadow for depth */
    margin: 30px;
    color: white;
+   border: 1px solid white;
 }
 
 .profile-header {
@@ -532,6 +533,7 @@ button:hover {
    /* Subtle shadow */
    color: white;
    margin: 30px;
+   border: 1px solid white;
 }
 
 .profile-details div h2 {
