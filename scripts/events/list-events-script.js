@@ -11,7 +11,7 @@ class EventListRenderer {
 
     init = async () => {
         document.addEventListener('DOMContentLoaded', async () => {
-            await this.loadEventData();
+            await this.loadEventData(); // Ensure events are loaded before rendering
             this.renderEvents();
         });
     };
@@ -19,9 +19,10 @@ class EventListRenderer {
     loadEventData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
-            this.allEvents = response.data.list;
+            this.allEvents = Array.isArray(response.data.list) ? response.data.list : []; // Ensure it's always an array
         } catch (error) {
             console.error('Error fetching event data: ', error);
+            this.allEvents = []; // Prevent undefined issues
         }
     };
 
@@ -46,7 +47,7 @@ class EventListRenderer {
 
         eventListContainer.innerHTML = ''; // Clear previous content
 
-        if (!this.allEvents.length) {
+        if (!Array.isArray(this.allEvents) || this.allEvents.length === 0) {
             eventListContainer.innerHTML = '<p>No events available.</p>';
             paginationContainer.innerHTML = '';
             return;
@@ -73,9 +74,11 @@ class EventListRenderer {
         const paginationContainer = document.querySelector(this.paginationSelector);
         paginationContainer.innerHTML = ''; // Clear previous buttons
 
+        if (totalPages <= 1) return; // Hide pagination if only one page
+
         const maxVisiblePages = 5; // Limit visible page buttons
-        const startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-        const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
         // Adjust the start page for edge cases
         if (endPage - startPage < maxVisiblePages - 1) {
@@ -83,12 +86,10 @@ class EventListRenderer {
         }
 
         // "First" Button
-        const firstButton = this.createPaginationButton('First', this.currentPage > 1, () => this.onPageClick(1));
-        paginationContainer.appendChild(firstButton);
+        paginationContainer.appendChild(this.createPaginationButton('First', this.currentPage > 1, () => this.onPageClick(1)));
 
         // "Previous" Button
-        const prevButton = this.createPaginationButton('Prev', this.currentPage > 1, () => this.onPageClick(this.currentPage - 1));
-        paginationContainer.appendChild(prevButton);
+        paginationContainer.appendChild(this.createPaginationButton('Prev', this.currentPage > 1, () => this.onPageClick(this.currentPage - 1)));
 
         // Numeric Buttons
         for (let i = startPage; i <= endPage; i++) {
@@ -100,12 +101,10 @@ class EventListRenderer {
         }
 
         // "Next" Button
-        const nextButton = this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1));
-        paginationContainer.appendChild(nextButton);
+        paginationContainer.appendChild(this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1)));
 
         // "Last" Button
-        const lastButton = this.createPaginationButton('Last', this.currentPage < totalPages, () => this.onPageClick(totalPages));
-        paginationContainer.appendChild(lastButton);
+        paginationContainer.appendChild(this.createPaginationButton('Last', this.currentPage < totalPages, () => this.onPageClick(totalPages)));
     };
 
     createPaginationButton = (label, isEnabled, onClick) => {
@@ -126,7 +125,7 @@ class EventListRenderer {
 
 // Create an instance of the class to render the events
 new EventListRenderer(
-    'http://192.168.1.54:8082/events/all',
+    'http://localhost:8082/events/all',
     '.event-list',
     '#pagination'
 );

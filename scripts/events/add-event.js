@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchGroups = async () => {
         try {
             // Replace this with JWT integration if required
-            const response = await axios.get('http://192.168.1.54:8081/groups/all');
+            const response = await axios.get('http://localhost:8081/groups/all');
             groups = response.data.list; // Store groups in state
         } catch (error) {
             console.error('Error fetching groups:', error);
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = { eventName, eventType, description, eventDate, groupId };
 
             // Replace this with JWT integration if required
-            const response = await axios.post('http://192.168.1.54:8082/events/create', data);
+            const response = await axios.post('http://localhost:8082/events/create', data);
             console.log('Event created successfully:', response.data);
 
             // Close the modal and refresh the page

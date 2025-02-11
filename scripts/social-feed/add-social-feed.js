@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch groups from the API
     const fetchGroups = async () => {
         try {
-            const response = await axios.get('http://192.168.1.54:8081/groups/all');
+            const response = await axios.get('http://localhost:8081/groups/all');
             groups = response.data.list; // Store groups in state
     
             const specificGroupName = "F2D ANNOUNCEMENT GROUP";
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = { title, content, groupId };
 
             // POST request to create the announcement
-            const response = await axios.post('http://192.168.1.54:8081/group-message/create', data);
+            const response = await axios.post('http://localhost:8081/group-message/create', data);
 
             console.log('Announcement created successfully:', response.data);
 
