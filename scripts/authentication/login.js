@@ -8,7 +8,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch('http://localhost:8080/auth/authenticate', {
+        const response = await fetch('http://192.168.1.54:8080/auth/authenticate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

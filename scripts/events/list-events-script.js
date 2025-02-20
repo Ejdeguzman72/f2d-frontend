@@ -125,7 +125,7 @@ class EventListRenderer {
 
 // Create an instance of the class to render the events
 new EventListRenderer(
-    'http://localhost:8082/events/all',
+    'http://192.168.1.54:8082/events/all',
     '.event-list',
     '#pagination'
 );

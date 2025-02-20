@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const retrieveGroupData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/groups/search/id/${groupIdSearchParam}`);
+      const response = await axios.get(`http://192.168.1.54:8081/groups/search/id/${groupIdSearchParam}`);
       return response.data.f2dGroup;
     } catch (error) {
       console.error("Error retrieving group data:", error);
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const retrieveGroupMessageData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8081/group-message/all/search/group/${groupIdSearchParam}`);
+      const response = await axios.get(`http://192.168.1.54:8081/group-message/all/search/group/${groupIdSearchParam}`);
       return response.data.list;
     } catch (error) {
       console.error('Error retrieving group message data:', error);
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const retrieveGroupEvents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8082/events/all/search/group/${groupIdSearchParam}`);
+      const response = await axios.get(`http://192.168.1.54:8082/events/all/search/group/${groupIdSearchParam}`);
       return response.data.list;
     } catch (error) {
       console.error('Error retrieving group event data:', error);

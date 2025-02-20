@@ -81,7 +81,7 @@ class SocialFeedRenderer {
 
 // Create an instance of the SocialFeedRenderer
 new SocialFeedRenderer(
-    'http://localhost:8081/group-message/all',
+    'http://192.168.1.54:8081/group-message/all',
     '.blog-posts',
     '#pagination'
 );
