@@ -62,21 +62,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     messages.forEach(message => {
-      console.log('this is message: ', message)
       const messageCard = document.createElement('div');
       messageCard.className = 'message-card';
 
       messageCard.innerHTML = `
-        <div class="header">Group Messages</div>
+      <div class="header">Group Messages</div>
       <div>
-        <span class="label">Message Title:</span>
         <div class="value">${message.title}</div>
       </div>
       <div>
-        <span class="label">Message Content:</span>
         <div class="value">${message.content}</div>
       </div>
       `;
+      container.appendChild(messageCard);
     })
   }
 
@@ -96,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       eventCard.className = 'event-card';
 
       eventCard.innerHTML = `
-        <div class="header">Event Details</div>
+      <div class="header">Event Details</div>
       <div>
         <span class="label">Event Name:</span>
         <div class="value">${groupEvent.eventName}</div>

@@ -682,10 +682,10 @@ button:hover {
 }
 
 #groupMessagesContainer {
+   background: #343434;
    border-radius: 8px;
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    font-size: 30px;
-   background: #343434;
    color: white;
    border: 1px solid white;
    margin: 20px;
@@ -696,15 +696,15 @@ button:hover {
    font-size: 20px;
    font-weight: bold;
    margin-bottom: 15px;
-   color: white;
+   color: #007bff;
  }
  #groupEventgroupMessagesContainersContainer .label {
    font-size: 14px;
-   color: white;
+   color: gray;
    margin-top: 10px;
  }
  #groupMessagesContainer .value {
-   font-size: 16px;
+   font-size: 20px;
    font-weight: 600;
    color: white;
    margin-top: 5px;
