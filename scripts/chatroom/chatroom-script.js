@@ -57,7 +57,7 @@ function initializeWebSocket() {
     }
 
     // Establish the WebSocket connection
-    const socket = new WebSocket('ws://192.168.1.54:8083/ws/default');
+    const socket = new WebSocket('ws://192.168.1.54:8083/f2d-chat');
 
     // WebSocket event handlers
     socket.onopen = () => {
