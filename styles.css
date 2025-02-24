@@ -68,7 +68,7 @@ html {
 
 /* Button styling */
 button {
-   padding: 12px 25px;
+   padding: 10px;
    background: linear-gradient(45deg, #007bff, #007bff);
    border: none;
    border-radius: 5px;
@@ -206,7 +206,7 @@ button:hover {
    justify-content: center;
    align-items: center;
    color: #ffffff;
-   height: 500vh;
+   height: 300vh;
 }
 
 /* Navbar styling */
@@ -868,20 +868,18 @@ button:hover {
 }
 
 .pagination-container {
-   display: flex;
-   justify-content: left;
-   gap: 10px;
-   margin-top: 20px;
+   /* display: flex; */
+   /* justify-content: left; */
 }
 
 .pagination-container button {
-   padding: 8px 12px;
+   /* padding: 8px 12px; */
    background-color: #007bff;
    color: white;
    border: none;
    border-radius: 4px;
    cursor: pointer;
-   font-size: 14px;
+   /* font-size: 14px; */
 }
 
 .pagination-container button:disabled {
