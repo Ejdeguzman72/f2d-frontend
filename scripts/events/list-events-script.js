@@ -4,14 +4,14 @@ class EventListRenderer {
         this.containerSelector = containerSelector;
         this.paginationSelector = paginationSelector;
         this.currentPage = 1;
-        this.itemsPerPage = 5; // Number of events per page
-        this.allEvents = []; // Store all events
+        this.itemsPerPage = 5;
+        this.allEvents = [];
         this.init();
     }
 
     init = async () => {
         document.addEventListener('DOMContentLoaded', async () => {
-            await this.loadEventData(); // Ensure events are loaded before rendering
+            await this.loadEventData();
             this.renderEvents();
         });
     };
@@ -19,10 +19,10 @@ class EventListRenderer {
     loadEventData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
-            this.allEvents = Array.isArray(response.data.list) ? response.data.list : []; // Ensure it's always an array
+            this.allEvents = Array.isArray(response.data.list) ? response.data.list : [];
         } catch (error) {
             console.error('Error fetching event data: ', error);
-            this.allEvents = []; // Prevent undefined issues
+            this.allEvents = [];
         }
     };
 
@@ -45,7 +45,7 @@ class EventListRenderer {
         const eventListContainer = document.querySelector(this.containerSelector);
         const paginationContainer = document.querySelector(this.paginationSelector);
 
-        eventListContainer.innerHTML = ''; // Clear previous content
+        eventListContainer.innerHTML = '';
 
         if (!Array.isArray(this.allEvents) || this.allEvents.length === 0) {
             eventListContainer.innerHTML = '<p>No events available.</p>';
@@ -56,7 +56,6 @@ class EventListRenderer {
         const totalItems = this.allEvents.length;
         const totalPages = Math.ceil(totalItems / this.itemsPerPage);
 
-        // Calculate the range of events to display for the current page
         const startIndex = (this.currentPage - 1) * this.itemsPerPage;
         const endIndex = Math.min(startIndex + this.itemsPerPage, totalItems);
         const currentEvents = this.allEvents.slice(startIndex, endIndex);
@@ -66,51 +65,41 @@ class EventListRenderer {
             eventListContainer.appendChild(eventItem);
         });
 
-        // Render pagination buttons
         this.renderPagination(totalPages);
     };
 
     renderPagination = (totalPages) => {
         const paginationContainer = document.querySelector(this.paginationSelector);
-        paginationContainer.innerHTML = ''; // Clear previous buttons
+        paginationContainer.innerHTML = '';
 
-        if (totalPages <= 1) return; // Hide pagination if only one page
+        if (totalPages <= 1) return;
 
-        const maxVisiblePages = 5; // Limit visible page buttons
-        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        // Create pagination button wrapper
+        const paginationWrapper = document.createElement('div');
+        paginationWrapper.classList.add('pagination-buttons'); // CSS class for grouping
 
-        // Adjust the start page for edge cases
-        if (endPage - startPage < maxVisiblePages - 1) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
+        const prevButton = this.createPaginationButton('Prev', this.currentPage > 1, () => this.onPageClick(this.currentPage - 1));
+        paginationWrapper.appendChild(prevButton);
 
-        // "First" Button
-        paginationContainer.appendChild(this.createPaginationButton('First', this.currentPage > 1, () => this.onPageClick(1)));
-
-        // "Previous" Button
-        paginationContainer.appendChild(this.createPaginationButton('Prev', this.currentPage > 1, () => this.onPageClick(this.currentPage - 1)));
-
-        // Numeric Buttons
-        for (let i = startPage; i <= endPage; i++) {
+        for (let i = 1; i <= totalPages; i++) {
             const button = this.createPaginationButton(i, true, () => this.onPageClick(i));
             if (i === this.currentPage) {
-                button.classList.add('active'); // Highlight active page
+                button.classList.add('active');
             }
-            paginationContainer.appendChild(button);
+            paginationWrapper.appendChild(button);
         }
 
-        // "Next" Button
-        paginationContainer.appendChild(this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1)));
+        const nextButton = this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1));
+        paginationWrapper.appendChild(nextButton);
 
-        // "Last" Button
-        paginationContainer.appendChild(this.createPaginationButton('Last', this.currentPage < totalPages, () => this.onPageClick(totalPages)));
+        paginationContainer.appendChild(paginationWrapper); // Append as a single group
     };
 
     createPaginationButton = (label, isEnabled, onClick) => {
         const button = document.createElement('button');
         button.textContent = label;
         button.disabled = !isEnabled;
+        button.classList.add('pagination-btn'); // Add styling class
         if (isEnabled) {
             button.addEventListener('click', onClick);
         }
@@ -123,7 +112,6 @@ class EventListRenderer {
     };
 }
 
-// Create an instance of the class to render the events
 new EventListRenderer(
     'http://192.168.1.54:8082/events/all',
     '.event-list',
