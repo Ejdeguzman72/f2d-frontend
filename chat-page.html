@@ -1,51 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>F2D - Groups</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2D Chatroom</title>
+    <script src="scripts/chatroom/chatroom-script.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body class="background-image">
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <a href="home-page.html">F2D</a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="social-feed-page.html">Social Feed</a></li>
-                <li><a href="events-page.html">Events</a></li>
-                <li><a href="groups-page.html">Groups</a></li>
-                <li><a href="chat-page.html">Chat</a></li>
-                <li><a href="profile-page.html">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="chat-container">
-            <h2>Chat Room</h2>
+<body>
 
-            <body>
-                <h1>Chat Application</h1>
-                <div id="messages"></div>
-                <input type="text" id="messageInput" placeholder="Type a message" />
-                <button id="sendButton">Send</button>
-
-                <!-- External Libraries -->
-                <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
-                <!-- Custom Script -->
-                <script src="scripts/chatroom/chatroom-script.js"></script>
-        </section>
-    </main>
+    <div id="chat-container">
+        <h2>F2D Chatroom</h2>
+        <div id="messages"></div>
+        <input type="text" id="usernameInput" placeholder="Enter your username..." />
+        <input type="text" id="messageInput" placeholder="Type a message..." />
+        <button id="sendButton">Send</button>
+    </div>
 
 </body>
-<footer>
-    <p>&copy;Edgar Joseph DeGuzman</p>
-</footer>
 
 </html>
