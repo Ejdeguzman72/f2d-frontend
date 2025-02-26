@@ -1,6 +1,6 @@
 // Function to format timestamps
 function formatTimestamp(isoTimestamp) {
-    const date = new Date(isoTimestamp); // Parse ISO string to Date object
+    const date = new Date(isoTimestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
     const day = String(date.getDate()).padStart(2, '0');
@@ -22,7 +22,7 @@ function displayMessage(sender, content, timestamp) {
     // Append the message to the chat container
     messagesDiv.appendChild(messageElement);
 
-    // Optionally scroll to the bottom of the chat
+    // Scroll to the bottom of the chat
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
@@ -41,8 +41,7 @@ function initializeWebSocket() {
         const decoded = jwt_decode(token);
 
         // Check if the token is expired
-        const isExpired = decoded.exp * 1000 < Date.now();
-        if (isExpired) {
+        if (decoded.exp * 1000 < Date.now()) {
             alert('Session expired. Please log in again.');
             console.log("Token has expired.");
             return;
