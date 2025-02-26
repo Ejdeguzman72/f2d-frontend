@@ -208,6 +208,18 @@ button:hover {
    height: auto;
 }
 
+.chat-background-image {
+   background-image: url('./assets/mosaic.png');
+   width: 100;
+   margin: 0 auto;
+   font-family: Tahoma, Verdana, Arial, sans-serif;
+   padding: 0;
+   /* background-size: cover; */
+   background-position: center;
+   font-family: Arial, sans-serif;
+   height: auto;
+}
+
 /* Navbar styling */
 .navbar {
    display: flex;
