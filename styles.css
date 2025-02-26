@@ -217,7 +217,7 @@ button:hover {
    /* background-size: cover; */
    background-position: center;
    font-family: Arial, sans-serif;
-   height: auto;
+   height: 140vh;
 }
 
 /* Navbar styling */
