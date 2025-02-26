@@ -78,61 +78,44 @@ class GroupRenderer {
     // Render pagination controls
     renderPagination = (totalPages) => {
         const paginationContainer = document.querySelector(this.paginationSelector);
-        paginationContainer.innerHTML = ''; // Clear previous buttons
-    
-        if (totalPages <= 1) return; // No pagination needed for a single page
-    
-        const maxVisiblePages = 5; // Number of visible numeric buttons
-        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
-        if (endPage - startPage < maxVisiblePages - 1) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1); // Reassignment now valid
-        }
-    
-        // "First" button
-        const firstButton = this.createPaginationButton('First', this.currentPage > 1, () => this.onPageClick(1));
-        paginationContainer.appendChild(firstButton);
-    
-        // "Previous" button
+        paginationContainer.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        const paginationWrapper = document.createElement('div');
+        paginationWrapper.classList.add('pagination-buttons');
+
         const prevButton = this.createPaginationButton('Prev', this.currentPage > 1, () => this.onPageClick(this.currentPage - 1));
-        paginationContainer.appendChild(prevButton);
-    
-        // Numeric buttons
-        for (let i = startPage; i <= endPage; i++) {
+        paginationWrapper.appendChild(prevButton);
+
+        for (let i = 1; i <= totalPages; i++) {
             const button = this.createPaginationButton(i, true, () => this.onPageClick(i));
             if (i === this.currentPage) {
                 button.classList.add('active');
             }
-            paginationContainer.appendChild(button);
+            paginationWrapper.appendChild(button);
         }
-    
-        // "Next" button
-        const nextButton = this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1));
-        paginationContainer.appendChild(nextButton);
-    
-        // "Last" button
-        const lastButton = this.createPaginationButton('Last', this.currentPage < totalPages, () => this.onPageClick(totalPages));
-        paginationContainer.appendChild(lastButton);
-    };    
 
-    // Create a pagination button
+        const nextButton = this.createPaginationButton('Next', this.currentPage < totalPages, () => this.onPageClick(this.currentPage + 1));
+        paginationWrapper.appendChild(nextButton);
+
+        paginationContainer.appendChild(paginationWrapper);
+    };
+
     createPaginationButton = (label, isEnabled, onClick) => {
         const button = document.createElement('button');
         button.textContent = label;
         button.disabled = !isEnabled;
-        button.classList.add('pagination-button');
+        button.classList.add('pagination-btn');
         if (isEnabled) {
             button.addEventListener('click', onClick);
         }
         return button;
     };
 
-    // Handle page click
     onPageClick = (page) => {
         this.currentPage = page;
-        console.log('Navigated to page:', page); // Debugging log
-        this.renderGroups();
+        this.renderSocialFeed();
     };
 }
 

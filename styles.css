@@ -197,16 +197,15 @@ button:hover {
 }
 
 .background-image {
-   /* flex: 0 0 60%; */
    background-image: url('./assets/mosaic.png');
+   width: 100;
+   margin: 0 auto;
+   font-family: Tahoma, Verdana, Arial, sans-serif;
+   padding: 0;
    /* background-size: cover; */
    background-position: center;
-   /* position: relative; */
-   /* display: flex; */
-   justify-content: center;
-   align-items: center;
-   color: #ffffff;
-   height: 150vh;
+   font-family: Arial, sans-serif;
+   height: auto;
 }
 
 /* Navbar styling */
@@ -874,11 +873,11 @@ button:hover {
    display: flex;
    justify-content: center;
    /* gap: 5px; Adjust the spacing between buttons */
-   margin-top: 15px;
+   padding: 30px;
 }
 
 .pagination-btn {
-   padding: 6px 12px;
+   /* padding: 6px 12px; */
    font-size: 14px;
    border: 1px solid #ccc;
    background-color: #f8f8f8;
