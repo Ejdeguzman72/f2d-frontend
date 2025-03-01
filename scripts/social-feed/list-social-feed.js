@@ -4,7 +4,7 @@ class SocialFeedRenderer {
         this.containerSelector = containerSelector;
         this.paginationSelector = paginationSelector;
         this.currentPage = 1;
-        this.itemsPerPage = 5;
+        this.itemsPerPage = 8;
         this.init();
     }
 
@@ -15,6 +15,7 @@ class SocialFeedRenderer {
     fetchSocialFeedData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
+            console.log(response.data)
             return response.data.list || []; // Ensure it's always an array
         } catch (error) {
             console.error('Error fetching social feed data:', error);
@@ -28,6 +29,7 @@ class SocialFeedRenderer {
         messageItem.innerHTML = `
             <h2>${message.title}</h2>
             <p>${message.content}</p>
+            <p>${message.createDatetime}</p>
         `;
         return messageItem;
     };

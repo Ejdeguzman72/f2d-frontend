@@ -196,6 +196,30 @@ button:hover {
    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
+.social-feed-background-image {
+   background-image: url('./assets/mosaic.png');
+   width: 100;
+   margin: 0 auto;
+   font-family: Tahoma, Verdana, Arial, sans-serif;
+   padding: 0;
+   /* background-size: cover; */
+   background-position: center;
+   font-family: Arial, sans-serif;
+   height: 180vh;
+}
+
+.events-background-image {
+   background-image: url('./assets/mosaic.png');
+   width: 100;
+   margin: 0 auto;
+   font-family: Tahoma, Verdana, Arial, sans-serif;
+   padding: 0;
+   /* background-size: cover; */
+   background-position: center;
+   font-family: Arial, sans-serif;
+   height: 160vh;
+}
+
 .background-image {
    background-image: url('./assets/mosaic.png');
    width: 100;
@@ -205,7 +229,7 @@ button:hover {
    /* background-size: cover; */
    background-position: center;
    font-family: Arial, sans-serif;
-   height: auto;
+   height: 160vh;
 }
 
 .chat-background-image {
@@ -605,6 +629,23 @@ button:hover {
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
    color: black;
    /* background: linear-gradient(45deg, #333, #fff); */
+}
+
+.group-item .btn {
+   display: inline-block;
+   /* Ensures the button appears inline */
+   /* padding: 8px; */
+   /* Padding for button */
+   background: #007bff;
+   /* Button background color */
+   color: #fff;
+   /* Button text color */
+   text-decoration: none;
+   /* Remove underline from links */
+   border-radius: 5px;
+   /* Rounded corners for the button */
+   /* transition: background 0.3s ease; */
+   /* Smooth background transition */
 }
 
 .group-item:hover {

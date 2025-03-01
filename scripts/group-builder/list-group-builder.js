@@ -39,7 +39,8 @@ class GroupRenderer {
             <h3>${group.groupName}</h3>
             <p>Type: ${group.groupType}</p>
             <p>Members: ${group.userIdSet.length}</p>
-            <a href="group-info-page.html?groupId=${group.groupId}" class="btn">View Group</a>
+            <button><a href="group-info-page.html?groupId=${group.groupId}" class="btn">View Group</a></button>
+            <button>Join Group</button>
         `;
 
         return groupItem;
