@@ -15,7 +15,6 @@ class SocialFeedRenderer {
     fetchSocialFeedData = async () => {
         try {
             const response = await axios.get(this.apiUrl);
-            console.log(response.data)
             return response.data.list || []; // Ensure it's always an array
         } catch (error) {
             console.error('Error fetching social feed data:', error);
