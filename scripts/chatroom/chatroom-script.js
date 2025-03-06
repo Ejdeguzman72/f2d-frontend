@@ -3,6 +3,8 @@ const messageInfo = {
     sender: "",
 }
 
+const token = localStorage.getItem('F2DToken');
+
 // const verifyUser = async (username) => {
 //     const verifiedUser = await axios.get(`http://192.168.1.54:8080/users/search/username/${username}`);
 //     console.log('Verified User: ', verifiedUser);
@@ -69,7 +71,7 @@ function initializeWebSocket() {
     }
 
     // Establish the WebSocket connection
-    const socket = new WebSocket('ws://192.168.1.54:8083/f2d-chat');
+    const socket = new WebSocket(`ws://192.168.1.54:8083/f2d-chat?token=${token}`);
 
     // WebSocket event handlers
     socket.onopen = () => {
