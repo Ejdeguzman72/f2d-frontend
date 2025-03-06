@@ -1,3 +1,14 @@
+const messageInfo = {
+    content: "",
+    sender: "",
+}
+
+// const verifyUser = async (username) => {
+//     const verifiedUser = await axios.get(`http://192.168.1.54:8080/users/search/username/${username}`);
+//     console.log('Verified User: ', verifiedUser);
+//     return verifiedUser;
+// }
+
 // Function to format timestamps
 function formatTimestamp(isoTimestamp) {
     const date = new Date(isoTimestamp);
@@ -49,6 +60,8 @@ function initializeWebSocket() {
 
         console.log("Token is valid. Fetching user details...");
         username = decoded.sub;
+        console.log('Username: ', username);
+
     } catch (error) {
         console.error('Failed to decode JWT token:', error);
         alert('Invalid session. Please log in again.');
@@ -56,7 +69,7 @@ function initializeWebSocket() {
     }
 
     // Establish the WebSocket connection
-    const socket = new WebSocket('ws://192.168.1.54:8083/f2d-chat');
+    const socket = new WebSocket('ws://localhost:8083/f2d-chat');
 
     // WebSocket event handlers
     socket.onopen = () => {

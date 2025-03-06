@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //     },
             // });
             // const response = await axiosWithToken.get('http://192.168.1.36:8080/app/entertainment-types/all');
-            const response = await axios.get('http://192.168.1.54:8081/groups/all');
+            const response = await axios.get('http://localhost:8081/groups/all');
             groups = response.data.list; // Store groups in state
         } catch (error) {
             console.error('Error fetching groups:', error);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // });
 
             // POST request to add book
-            const response = await axios.post('http://192.168.1.54:8081/groups/create', data);
+            const response = await axios.post('http://localhost:8081/groups/create', data);
             console.log('Group created successfully:', response.data);
 
             // Close the modal

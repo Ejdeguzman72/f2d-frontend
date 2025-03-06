@@ -115,7 +115,7 @@ class EventListRenderer {
 }
 
 new EventListRenderer(
-    'http://192.168.1.54:8082/events/all',
+    'http://localhost:8082/events/all',
     '.event-list',
     '#pagination'
 );

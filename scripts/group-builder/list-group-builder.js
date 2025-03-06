@@ -122,7 +122,7 @@ class GroupRenderer {
 
 // Create an instance of the class to render the groups
 new GroupRenderer(
-    'http://192.168.1.54:8081/groups/all', // Replace with your API endpoint
+    'http://localhost:8081/groups/all', // Replace with your API endpoint
     '.group-list', // Selector for the group list container
     '#pagination' // Selector for the pagination container
 );
