@@ -995,3 +995,9 @@ footer {
       width: 100%;
    }
 }
+
+#historyButton {
+   padding: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}

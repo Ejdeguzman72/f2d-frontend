@@ -4,6 +4,7 @@ const messageInfo = {
 };
 
 const token = localStorage.getItem('F2DToken');
+let historyVisible = false; // Track whether history is visible
 
 // Function to format timestamps
 function formatTimestamp(isoTimestamp) {
@@ -41,13 +42,22 @@ async function fetchChatHistory() {
             throw new Error(`Failed to fetch chat history: ${response.statusText}`);
         }
         const messages = await response.json();
-        console.log(messages);
-        // Display each historical message
-        messages.list.forEach(msg => {
-            displayMessage(msg.sender, msg.content, formatTimestamp(msg.sentDatetime));
-        });
 
-        console.log("Chat history loaded successfully.");
+        const messagesDiv = document.getElementById('messages');
+
+        // Toggle history visibility
+        if (!historyVisible) {
+            messagesDiv.innerHTML = ""; // Clear existing messages before showing history
+            messages.list.forEach(msg => {
+                displayMessage(msg.sender, msg.content, formatTimestamp(msg.sentDatetime));
+            });
+            document.getElementById('historyButton').textContent = "Hide Chat History";
+        } else {
+            messagesDiv.innerHTML = ""; // Clear messages when hiding history
+            document.getElementById('historyButton').textContent = "Show Chat History";
+        }
+
+        historyVisible = !historyVisible;
     } catch (error) {
         console.error("Error fetching chat history:", error);
     }
@@ -82,66 +92,71 @@ function initializeWebSocket() {
         return;
     }
 
-    // Fetch and display chat history before opening WebSocket
-    fetchChatHistory().then(() => {
-        // Establish the WebSocket connection
-        const socket = new WebSocket(`ws://192.168.1.54:8083/f2d-chat?token=${token}`);
+    // Establish the WebSocket connection
+    const socket = new WebSocket(`ws://192.168.1.54:8083/f2d-chat?token=${token}`);
 
-        // WebSocket event handlers
-        socket.onopen = () => {
-            console.log('WebSocket connection established');
-        };
+    // WebSocket event handlers
+    socket.onopen = () => {
+        console.log('WebSocket connection established');
+    };
 
-        socket.onmessage = (event) => {
-            let message;
+    socket.onmessage = (event) => {
+        let message;
 
-            try {
-                const jsonStartIndex = event.data.indexOf('{');
-                if (jsonStartIndex !== -1) {
-                    const jsonString = event.data.substring(jsonStartIndex);
-                    message = JSON.parse(jsonString);
-                    console.log('Parsed message:', message);
+        try {
+            const jsonStartIndex = event.data.indexOf('{');
+            if (jsonStartIndex !== -1) {
+                const jsonString = event.data.substring(jsonStartIndex);
+                message = JSON.parse(jsonString);
+                console.log('Parsed message:', message);
 
-                    // Display the parsed message
-                    displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
-                } else {
-                    console.warn('No JSON found in message:', event.data);
-                }
-            } catch (e) {
-                console.error("Failed to parse JSON:", e);
+                // Display the parsed message
+                displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
+            } else {
+                console.warn('No JSON found in message:', event.data);
             }
-        };
-
-        socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-            alert('Connection error. Please try again later.');
-        };
-
-        socket.onclose = () => {
-            console.log('WebSocket connection closed');
-            alert('Connection closed. Please refresh to reconnect.');
-        };
-
-        // Send message handler
-        const sendButton = document.getElementById('sendButton');
-        const messageInput = document.getElementById('messageInput');
-        if (sendButton && messageInput) {
-            sendButton.addEventListener('click', () => {
-                const message = {
-                    sender: username,
-                    content: messageInput.value,
-                    timestamp: new Date().toISOString(),
-                };
-
-                // Send the message as a JSON string
-                socket.send(JSON.stringify(message));
-                messageInput.value = ''; // Clear the input field
-            });
-        } else {
-            console.error('Send button or message input is not found in the DOM.');
+        } catch (e) {
+            console.error("Failed to parse JSON:", e);
         }
-    });
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        alert('Connection error. Please try again later.');
+    };
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed');
+        alert('Connection closed. Please refresh to reconnect.');
+    };
+
+    // Send message handler
+    const sendButton = document.getElementById('sendButton');
+    const messageInput = document.getElementById('messageInput');
+    if (sendButton && messageInput) {
+        sendButton.addEventListener('click', () => {
+            const message = {
+                sender: username,
+                content: messageInput.value,
+                timestamp: new Date().toISOString(),
+            };
+
+            // Send the message as a JSON string
+            socket.send(JSON.stringify(message));
+            messageInput.value = ''; // Clear the input field
+        });
+    } else {
+        console.error('Send button or message input is not found in the DOM.');
+    }
 }
 
 // Initialize WebSocket connection
 initializeWebSocket();
+
+// Attach event listener for chat history toggle button
+document.addEventListener("DOMContentLoaded", function () {
+    const historyButton = document.getElementById('historyButton');
+    if (historyButton) {
+        historyButton.addEventListener('click', fetchChatHistory);
+    }
+});
