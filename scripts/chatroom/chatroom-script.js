@@ -1,15 +1,9 @@
 const messageInfo = {
     content: "",
     sender: "",
-}
+};
 
 const token = localStorage.getItem('F2DToken');
-
-// const verifyUser = async (username) => {
-//     const verifiedUser = await axios.get(`http://192.168.1.54:8080/users/search/username/${username}`);
-//     console.log('Verified User: ', verifiedUser);
-//     return verifiedUser;
-// }
 
 // Function to format timestamps
 function formatTimestamp(isoTimestamp) {
@@ -39,9 +33,28 @@ function displayMessage(sender, content, timestamp) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
+// Function to fetch and display chat history
+async function fetchChatHistory() {
+    try {
+        const response = await fetch('http://192.168.1.54:8083/chatroom/chat-messages/all');
+        if (!response.ok) {
+            throw new Error(`Failed to fetch chat history: ${response.statusText}`);
+        }
+        const messages = await response.json();
+        console.log(messages);
+        // Display each historical message
+        messages.list.forEach(msg => {
+            displayMessage(msg.sender, msg.content, formatTimestamp(msg.sentDatetime));
+        });
+
+        console.log("Chat history loaded successfully.");
+    } catch (error) {
+        console.error("Error fetching chat history:", error);
+    }
+}
+
 // Function to initialize the WebSocket connection
 function initializeWebSocket() {
-    const token = localStorage.getItem('F2DToken');
     if (!token) {
         console.log("Token not found in local storage.");
         alert('Please log in to use the chat.');
@@ -63,69 +76,71 @@ function initializeWebSocket() {
         console.log("Token is valid. Fetching user details...");
         username = decoded.sub;
         console.log('Username: ', username);
-
     } catch (error) {
         console.error('Failed to decode JWT token:', error);
         alert('Invalid session. Please log in again.');
         return;
     }
 
-    // Establish the WebSocket connection
-    const socket = new WebSocket(`ws://192.168.1.54:8083/f2d-chat?token=${token}`);
+    // Fetch and display chat history before opening WebSocket
+    fetchChatHistory().then(() => {
+        // Establish the WebSocket connection
+        const socket = new WebSocket(`ws://192.168.1.54:8083/f2d-chat?token=${token}`);
 
-    // WebSocket event handlers
-    socket.onopen = () => {
-        console.log('WebSocket connection established');
-    };
+        // WebSocket event handlers
+        socket.onopen = () => {
+            console.log('WebSocket connection established');
+        };
 
-    socket.onmessage = (event) => {
-        let message;
+        socket.onmessage = (event) => {
+            let message;
 
-        try {
-            const jsonStartIndex = event.data.indexOf('{');
-            if (jsonStartIndex !== -1) {
-                const jsonString = event.data.substring(jsonStartIndex);
-                message = JSON.parse(jsonString);
-                console.log('Parsed message:', message);
+            try {
+                const jsonStartIndex = event.data.indexOf('{');
+                if (jsonStartIndex !== -1) {
+                    const jsonString = event.data.substring(jsonStartIndex);
+                    message = JSON.parse(jsonString);
+                    console.log('Parsed message:', message);
 
-                // Display the parsed message
-                displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
-            } else {
-                console.warn('No JSON found in message:', event.data);
+                    // Display the parsed message
+                    displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
+                } else {
+                    console.warn('No JSON found in message:', event.data);
+                }
+            } catch (e) {
+                console.error("Failed to parse JSON:", e);
             }
-        } catch (e) {
-            console.error("Failed to parse JSON:", e);
+        };
+
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+            alert('Connection error. Please try again later.');
+        };
+
+        socket.onclose = () => {
+            console.log('WebSocket connection closed');
+            alert('Connection closed. Please refresh to reconnect.');
+        };
+
+        // Send message handler
+        const sendButton = document.getElementById('sendButton');
+        const messageInput = document.getElementById('messageInput');
+        if (sendButton && messageInput) {
+            sendButton.addEventListener('click', () => {
+                const message = {
+                    sender: username,
+                    content: messageInput.value,
+                    timestamp: new Date().toISOString(),
+                };
+
+                // Send the message as a JSON string
+                socket.send(JSON.stringify(message));
+                messageInput.value = ''; // Clear the input field
+            });
+        } else {
+            console.error('Send button or message input is not found in the DOM.');
         }
-    };
-
-    socket.onerror = (error) => {
-        console.error('WebSocket error:', error);
-        alert('Connection error. Please try again later.');
-    };
-
-    socket.onclose = () => {
-        console.log('WebSocket connection closed');
-        alert('Connection closed. Please refresh to reconnect.');
-    };
-
-    // Send message handler
-    const sendButton = document.getElementById('sendButton');
-    const messageInput = document.getElementById('messageInput');
-    if (sendButton && messageInput) {
-        sendButton.addEventListener('click', () => {
-            const message = {
-                sender: username,
-                content: messageInput.value,
-                timestamp: new Date().toISOString(),
-            };
-
-            // Send the message as a JSON string
-            socket.send(JSON.stringify(message));
-            messageInput.value = ''; // Clear the input field
-        });
-    } else {
-        console.error('Send button or message input is not found in the DOM.');
-    }
+    });
 }
 
 // Initialize WebSocket connection
