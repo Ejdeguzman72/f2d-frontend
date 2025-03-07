@@ -37,10 +37,13 @@ function displayMessage(sender, content, timestamp) {
 // Function to fetch and display chat history
 async function fetchChatHistory() {
     try {
-        const response = await fetch('http://192.168.1.54:8083/chatroom/chat-messages/all');
-        if (!response.ok) {
-            throw new Error(`Failed to fetch chat history: ${response.statusText}`);
-        }
+        const response = await fetch('http://192.168.1.54:8083/chatroom/chat-messages/all', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Pass token in Authorization header
+                'Content-Type': 'application/json',
+            },
+        });
         const messages = await response.json();
 
         const messagesDiv = document.getElementById('messages');
