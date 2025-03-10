@@ -151,7 +151,7 @@ function initializeWebSocket() {
 
             // Send the message as a JSON string
             // socket.send(JSON.stringify(message));
-            socket.send(JSON.stringify(message.content));
+            socket.send(message.content);
             messageInput.value = ''; // Clear the input field
         });
     } else {
