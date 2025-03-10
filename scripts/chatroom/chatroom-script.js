@@ -94,13 +94,21 @@ function initializeWebSocket() {
         console.log('Raw WebSocket message:', event.data); // Debug log
 
         try {
-            if (event.data.startsWith('{') || event.data.startsWith('[')) { // Basic JSON check
-                const message = JSON.parse(event.data);
-                const timestamp = message.sentDatetime || new Date().toISOString();
+            let data = event.data.trim();
+
+            // Check if message starts with the prefix "[f2d]: "
+            const prefix = "[f2d]: ";
+            if (data.startsWith(prefix)) {
+                data = data.substring(prefix.length); // Remove the prefix
+            }
+
+            if (data.startsWith('{') || data.startsWith('[')) { // Basic JSON check
+                const message = JSON.parse(data);
+                const timestamp = message.timestamp || new Date().toISOString();
                 displayMessage(message.sender || "Unknown", message.content || "[No Content]", formatTimestamp(timestamp));
             } else {
                 // Handle non-JSON messages separately
-                displayMessage("System", event.data, formatTimestamp(new Date().toISOString()));
+                displayMessage("System", data, formatTimestamp(new Date().toISOString()));
             }
         } catch (e) {
             console.warn("Invalid JSON message:", event.data);
