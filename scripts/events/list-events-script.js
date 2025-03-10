@@ -90,7 +90,7 @@ class EventListRenderer {
             <p>Date: ${eventDetails.eventDate}</p>
             <p>Group: ${eventDetails.f2dGroup.groupName}</p>
             <button><a href="event-info-page.html?eventId=${eventDetails.eventId}" class="btn">View Event</a></button>
-            <button id="event-btn-${eventDetails.eventId}">${isParticipant ? 'Leave Event' : 'Join Event'}</button>
+            <button class="btn" id="event-btn-${eventDetails.eventId}">${isParticipant ? 'Leave Event' : 'Join Event'}</button>
         `;
 
         const eventButton = eventItem.querySelector(`#event-btn-${eventDetails.eventId}`);
