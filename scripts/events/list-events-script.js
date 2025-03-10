@@ -132,7 +132,7 @@ class EventListRenderer {
             };
 
             console.log(requestBody);
-
+            console.log(eventDetails.eventId)
             const response = await fetch(`http://192.168.1.54:8082/events/update/${eventDetails.eventId}`, {
                 method: 'PUT',
                 headers: {
