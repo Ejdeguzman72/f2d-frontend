@@ -88,13 +88,13 @@ function initializeWebSocket() {
 
         try {
             // Try parsing as JSON first
-            const message = JSON.parse(event.data);
+            const message = event.data;
             const timestamp = message.sentDatetime || message.timestamp || new Date().toISOString();
             displayMessage(message.sender, message.content, formatTimestamp(timestamp));
         } catch (e) {
             console.warn("Received non-JSON message:", event.data);
             // If it's just a plain string message, show it as-is
-            displayMessage("Unknown", event.data, formatTimestamp(new Date().toISOString()));
+            displayMessage(message.sender, event.data, formatTimestamp(new Date().toISOString()));
         }
     };
 
