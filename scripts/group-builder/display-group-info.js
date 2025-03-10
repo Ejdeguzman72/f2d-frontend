@@ -7,6 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageSize = 5; // Number of items per page
   const groupIdSearchParam = new URLSearchParams(window.location.search).get("groupId");
 
+  // Show loading spinner
+  const showLoading = () => {
+    const loadingContainer = document.getElementById("loadingContainer");
+    loadingContainer.style.display = "block"; // Show loading spinner
+  };
+
+  const hideLoading = () => {
+    const loadingContainer = document.getElementById("loadingContainer");
+    loadingContainer.style.display = "none"; // Hide loading spinner
+  };
+
+  // Fetch the group data from the backend
   const retrieveGroupData = async () => {
     try {
       const response = await axios.get(`http://192.168.1.54:8081/groups/search/id/${groupIdSearchParam}`);
@@ -17,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Fetch the group messages from the backend
   const retrieveGroupMessageData = async () => {
     try {
       const response = await axios.get(`http://192.168.1.54:8081/group-message/all/search/group/${groupIdSearchParam}`);
@@ -27,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Fetch the group events from the backend
   const retrieveGroupEvents = async () => {
     try {
       const response = await axios.get(`http://192.168.1.54:8082/events/all/search/group/${groupIdSearchParam}`);
@@ -37,26 +51,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Fetch and render the group data
   retrieveGroupData().then((data) => {
     groupData = data;
     renderGroupDetails(groupData);
+    hideLoading();
   });
 
+  // Fetch and render the group message data
   retrieveGroupMessageData().then((data) => {
     groupMessageData = data;
     renderGroupMessageData();
+    hideLoading();
   });
 
+  // Fetch and render the group events data
   retrieveGroupEvents().then((data) => {
     groupEventData = data;
     renderGroupEventsDetails();
+    hideLoading();
   });
 
+  // Pagination function to manage data splitting
   const paginate = (data, page) => {
     const start = (page - 1) * pageSize;
     return data.slice(start, start + pageSize);
   };
 
+  // Render the group message data with pagination
   const renderGroupMessageData = () => {
     const container = document.getElementById("groupMessagesContainer");
     container.innerHTML = "";
@@ -82,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // Render the group event details with pagination
   const renderGroupEventsDetails = () => {
     const container = document.getElementById("groupEventsContainer");
     container.innerHTML = "";
@@ -109,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // Render pagination controls
   const renderPaginationControls = (containerId, currentPage, totalPages, onPageChange) => {
     const container = document.getElementById(containerId);
     container.innerHTML = "";
@@ -132,12 +156,22 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(nextButton);
   };
 
+  // Render the group details
   const renderGroupDetails = (group) => {
     const container = document.getElementById("groupDetailsContainer");
+
+    if (!container) {
+      console.error("Group details container not found");
+      return;
+    }
+
     if (!group) {
       container.innerHTML = `<div class="error">Failed to load group details.</div>`;
       return;
     }
+
+    console.log("Rendering group details:", group);  // Log the group data for debugging
+
     container.innerHTML = `
       <div class="header">Group Details</div>
       <div><strong>Group ID:</strong> ${group.groupId}</div>
@@ -146,12 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <div><strong>Users in Group:</strong> ${group.userIdSet?.length ? group.userIdSet.join(", ") : "No users yet"}</div>
       <div><strong>Created On:</strong> ${group.createTime}</div>
       <div><strong>Last Updated:</strong> ${group.lastUpdateTime}</div>
-      <br>
-      <div class="header">Chat Group Details</div>
-      <div><strong>Chat Group ID:</strong> ${group.chatGroup.chatGroupId}</div>
-      <div><strong>Chat Group Name:</strong> ${group.chatGroup.groupName}</div>
-      <div><strong>Created On:</strong> ${group.chatGroup.createDate}</div>
-      <div><strong>Last Updated:</strong> ${group.chatGroup.lastUpdateTime}</div>
     `;
   };
 });
