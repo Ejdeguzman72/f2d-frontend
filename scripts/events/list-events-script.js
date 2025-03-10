@@ -82,7 +82,6 @@ class EventListRenderer {
 
         // Check if the current user is in the attendees list
         const isParticipant = attendees.includes(currentUserId);
-        console.log(isParticipant)
 
         eventItem.innerHTML = `
             <h3>${eventDetails.eventName}</h3>
@@ -132,7 +131,6 @@ class EventListRenderer {
                 attendees: updatedParticipants
             };
 
-            
             const response = await fetch(`http://192.168.1.54:8082/events/update/${eventDetails.eventId}`, {
                 method: 'PUT',
                 headers: {
@@ -172,7 +170,7 @@ class EventListRenderer {
         const currentEvents = this.allEvents.slice(startIndex, endIndex);
 
         currentEvents.forEach(event => {
-            const eventItem = this.createEventItem(event, userId);
+            const eventItem = this.createEventItem(event, userId); // Ensure isParticipant is checked here
             eventListContainer.appendChild(eventItem);
         });
 
