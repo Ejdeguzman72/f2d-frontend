@@ -11,6 +11,9 @@ function formatTimestamp(isoTimestamp) {
 
 // Function to display messages in the chat
 function displayMessage(sender, content, timestamp) {
+    if (!sender) sender = "Unknown";
+    if (!content) content = "[No Content]";
+
     const messagesDiv = document.getElementById('messages');
     const messageElement = document.createElement('div');
     messageElement.classList.add('message');
@@ -29,6 +32,10 @@ async function fetchChatHistory() {
                 'Content-Type': 'application/json',
             },
         });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch chat history. Status: ${response.status}`);
+        }
 
         const messages = await response.json();
         const messagesDiv = document.getElementById('messages');
@@ -87,14 +94,12 @@ function initializeWebSocket() {
         console.log('Received WebSocket message:', event.data);
 
         try {
-            // Try parsing as JSON first
-            const message = event.data;
+            const message = JSON.parse(event.data); // Ensure it's parsed as JSON
             const timestamp = message.sentDatetime || message.timestamp || new Date().toISOString();
             displayMessage(message.sender, message.content, formatTimestamp(timestamp));
         } catch (e) {
             console.warn("Received non-JSON message:", event.data);
-            // If it's just a plain string message, show it as-is
-            displayMessage(message.sender, event.data, formatTimestamp(new Date().toISOString()));
+            displayMessage("Unknown", event.data, formatTimestamp(new Date().toISOString()));
         }
     };
 
@@ -111,13 +116,17 @@ function initializeWebSocket() {
     // Send message handler
     const sendButton = document.getElementById('sendButton');
     const messageInput = document.getElementById('messageInput');
-    
+
     if (sendButton && messageInput) {
         sendButton.addEventListener('click', () => {
             if (!messageInput.value.trim()) return; // Prevent sending empty messages
 
             // Send the message as a plain string
-            socket.send(messageInput.value);
+            socket.send(JSON.stringify({
+                sender: username,
+                content: messageInput.value,
+                timestamp: new Date().toISOString()
+            }));
 
             messageInput.value = ''; // Clear the input field
         });
