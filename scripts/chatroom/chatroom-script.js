@@ -148,7 +148,9 @@ function initializeWebSocket() {
                 content: messageInput.value,
                 timestamp: new Date().toISOString(),
             };
+
             // Send the message as a JSON string
+            // socket.send(JSON.stringify(message));
             socket.send(JSON.stringify(message.content));
             messageInput.value = ''; // Clear the input field
         });
