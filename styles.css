@@ -205,7 +205,7 @@ button:hover {
    /* background-size: cover; */
    background-position: center;
    font-family: Arial, sans-serif;
-   height: 200vh;
+   height: 300vh;
 }
 
 .events-background-image {
@@ -217,7 +217,7 @@ button:hover {
    /* background-size: cover; */
    background-position: center;
    font-family: Arial, sans-serif;
-   height: 160vh;
+   height: 300vh;
 }
 
 .background-image {
@@ -229,7 +229,7 @@ button:hover {
    /* background-size: cover; */
    background-position: center;
    font-family: Arial, sans-serif;
-   height: 160vh;
+   height: 300vh;
 }
 
 .chat-background-image {
