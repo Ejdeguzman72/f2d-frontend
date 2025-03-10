@@ -8,6 +8,7 @@ let historyVisible = false; // Track whether history is visible
 
 // Function to format timestamps
 function formatTimestamp(isoTimestamp) {
+    if (!isoTimestamp) return "Unknown Time";
     const date = new Date(isoTimestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
@@ -44,6 +45,7 @@ async function fetchChatHistory() {
                 'Content-Type': 'application/json',
             },
         });
+
         const messages = await response.json();
 
         const messagesDiv = document.getElementById('messages');
@@ -104,17 +106,18 @@ function initializeWebSocket() {
     };
 
     socket.onmessage = (event) => {
-        let message;
-
         try {
+            console.log('Received WebSocket message:', event.data);
+
             const jsonStartIndex = event.data.indexOf('{');
             if (jsonStartIndex !== -1) {
                 const jsonString = event.data.substring(jsonStartIndex);
-                message = JSON.parse(jsonString);
+                const message = JSON.parse(jsonString);
                 console.log('Parsed message:', message);
 
-                // Display the parsed message
-                displayMessage(message.sender, message.content, formatTimestamp(message.timestamp));
+                // Use correct timestamp field
+                const timestamp = message.sentDatetime || message.timestamp || new Date().toISOString();
+                displayMessage(message.sender, message.content, formatTimestamp(timestamp));
             } else {
                 console.warn('No JSON found in message:', event.data);
             }
@@ -138,6 +141,8 @@ function initializeWebSocket() {
     const messageInput = document.getElementById('messageInput');
     if (sendButton && messageInput) {
         sendButton.addEventListener('click', () => {
+            if (!messageInput.value.trim()) return; // Prevent sending empty messages
+
             const message = {
                 sender: username,
                 content: messageInput.value,
