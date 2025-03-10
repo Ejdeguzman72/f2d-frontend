@@ -91,14 +91,19 @@ function initializeWebSocket() {
     };
 
     socket.onmessage = (event) => {
-        console.log('Received WebSocket message:', event.data);
+        console.log('Raw WebSocket message:', event.data); // Debug log
 
         try {
-            const message = JSON.parse(event.data); // Ensure it's parsed as JSON
-            const timestamp = message.sentDatetime || message.timestamp || new Date().toISOString();
-            displayMessage(message.sender, message.content, formatTimestamp(timestamp));
+            if (event.data.startsWith('{') || event.data.startsWith('[')) { // Basic JSON check
+                const message = JSON.parse(event.data);
+                const timestamp = message.sentDatetime || new Date().toISOString();
+                displayMessage(message.sender || "Unknown", message.content || "[No Content]", formatTimestamp(timestamp));
+            } else {
+                // Handle non-JSON messages separately
+                displayMessage("System", event.data, formatTimestamp(new Date().toISOString()));
+            }
         } catch (e) {
-            console.warn("Received non-JSON message:", event.data);
+            console.warn("Invalid JSON message:", event.data);
             displayMessage("Unknown", event.data, formatTimestamp(new Date().toISOString()));
         }
     };
