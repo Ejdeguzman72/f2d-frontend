@@ -328,11 +328,26 @@ input:focus {
 .hero-section {
    text-align: center;
    padding: 80px 20px;
-   background: url('./assets/mosaic.png');
-   /* Improved hero section */
+   background: url('./assets/image.png');
    color: white;
    position: relative;
 }
+
+.hero-section::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+   z-index: 1; /* Place overlay below text */
+}
+.hero-section h1, .hero-section p {
+   position: relative; /* Make sure text stays above overlay */
+   z-index: 2;
+}
+
 
 .hero-section h1 {
    font-size: 2.8em;
@@ -392,7 +407,7 @@ input:focus {
    padding: 30px;
    border-radius: 10px;
    box-shadow: 24px 48px 64px rgba(0, 0, 0, 0.4);
-   margin: 10px;
+   margin: 15px;
    color: white;
    flex: 0 0 30%;
    /* Responsive width */
