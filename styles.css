@@ -179,7 +179,7 @@ button:hover {
 /* Image side styling */
 .image-side {
    flex: 0 0 60%;
-   background-image: url('./assets/mosaic.png');
+   background-image: url('./assets/image.png');
    /* background-size: cover; */
    background-position: center;
    position: relative;
