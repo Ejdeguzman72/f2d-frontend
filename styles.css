@@ -17,6 +17,10 @@ html {
 .container {
    display: flex;
    height: 100vh;
+   /* padding: 30px; */
+   border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px) saturate(120%);
 }
 
 /* Login form styling */
@@ -137,6 +141,22 @@ button:hover {
    text-decoration: none;
 }
 
+
+input {
+   width: 100%;
+   padding: 10px;
+   margin-top: 5px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+   border-color: #6b73ff;
+   outline: none;
+   box-shadow: 0px 0px 5px rgba(107, 115, 255, 0.5);
+}
+
 /* Input fields styling */
 .modal-body .input,
 .modal-body .textarea,
@@ -178,6 +198,19 @@ button:hover {
 
 /* Image side styling */
 .image-side {
+   flex: 0 0 60%;
+   background-image: url('./assets/image.png');
+   /* background-size: cover; */
+   background-position: center;
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: #ffffff;
+}
+
+/* Image side styling */
+.home-image {
    flex: 0 0 60%;
    background-image: url('./assets/image.png');
    /* background-size: cover; */
