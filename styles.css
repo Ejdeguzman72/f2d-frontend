@@ -278,6 +278,20 @@ input:focus {
    height: 300vh;
 }
 
+
+.groupDetails-background-image {
+   background-image: url('./assets/image.png');
+   width: 100;
+   margin: 0 auto;
+   font-family: Tahoma, Verdana, Arial, sans-serif;
+   padding: 0;
+   /* background-size: cover; */
+   background-position: center;
+   font-family: Arial, sans-serif;
+   height: 80vh;
+   opacity: 0.5
+}
+
 .chat-background-image {
    background-image: url('./assets/mosaic.png');
    width: 100;
