@@ -82,7 +82,7 @@ class GroupRenderer {
     createGroupItem = (group, currentUserId) => {
         const groupItem = document.createElement('div');
         groupItem.classList.add('group-item');
-
+        console.log(group)
         const isMember = group.userIdSet.includes(currentUserId);
 
         groupItem.innerHTML = `
