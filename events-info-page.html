@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <title>F2D - Events Info</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F2D - Events</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
-    <script src="scripts/events/list-events-script.js"></script>
-    <script src="scripts/events/add-event.js"></script>
+    <script src="scripts/events/display-event-info.js"></script>
 </head>
 
-<body class="events-background-image">
+<body class="background-image">
     <header>
         <nav class="navbar">
             <div class="logo">
@@ -30,24 +29,11 @@
     <main>
         <div id="loadingContainer" style="display:none;">
             <div class="loading-spinner"></div>
-        </div>   
-        <section class="event-list">
-            <h2>Upcoming Events</h2>
-        </section>
-        <div class="add-button-container">
-            <button id="add-event-button">New Event</button>
-            <div id="pagination"></div>
-        </div>
-        <div id="myAddModal" class="modal">
-            <div class="add-modal-content">
-                <span id="addModalCloseBtn" class="close-button">&times;</span>
-                <div id="addModalContent"></div>
-            </div>
-        </div>
+        </div>        
+        
     </main>
 </body>
 <footer>
     <p>&copy;Edgar Joseph DeGuzman</p>
 </footer>
-
 </html>

@@ -89,7 +89,7 @@ class EventListRenderer {
             <p>Description: ${eventDetails.description}</p>
             <p>Date: ${eventDetails.eventDate}</p>
             <p>Group: ${eventDetails.f2dGroup.groupName}</p>
-            <button><a href="event-info-page.html?eventId=${eventDetails.eventId}" class="btn">View Event</a></button>
+            <button><a href="events-info-page.html?eventId=${eventDetails.eventId}" class="btn">View Event</a></button>
             <button class="btn" id="event-btn-${eventDetails.eventId}">${isParticipant ? 'Leave Event' : 'Join Event'}</button>
         `;
 
