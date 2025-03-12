@@ -25,7 +25,7 @@ function displayMessage(sender, content, timestamp) {
 // Function to fetch and display chat history
 async function fetchChatHistory() {
     try {
-        const response = await fetch('http://localhost:8083/chatroom/chat-messages/all', {
+        const response = await fetch('http://192.168.1.54:8083/chatroom/chat-messages/all', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -84,7 +84,7 @@ function initializeWebSocket() {
     }
 
     // Establish the WebSocket connection
-    const socket = new WebSocket(`ws://localhost:8083/chatroom/f2d-chat?token=${token}`);
+    const socket = new WebSocket(`ws://192.168.1.54:8083/chatroom/f2d-chat?token=${token}`);
 
     socket.onopen = () => {
         console.log('WebSocket connection established');

@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // Fetch and store data
-  const retrieveGroupData = async () => fetchData(`http://localhost:8081/groups/search/id/${groupIdSearchParam}`);
-  const retrieveGroupMessageData = async () => fetchData(`http://localhost:8081/group-message/all/search/group/${groupIdSearchParam}`);
-  const retrieveGroupEvents = async () => fetchData(`http://localhost:8082/events/all/search/group/${groupIdSearchParam}`);
+  const retrieveGroupData = async () => fetchData(`http://192.168.1.54:8081/groups/search/id/${groupIdSearchParam}`);
+  const retrieveGroupMessageData = async () => fetchData(`http://192.168.1.54:8081/group-message/all/search/group/${groupIdSearchParam}`);
+  const retrieveGroupEvents = async () => fetchData(`http://192.168.1.54:8082/events/all/search/group/${groupIdSearchParam}`);
 
   const paginate = (data, page) => data.slice((page - 1) * pageSize, page * pageSize);
 
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const listItem = document.createElement("li");
 
       try {
-        const response = await fetch(`http://localhost:8080/users/search/id/${userId}`, {
+        const response = await fetch(`http://192.168.1.54:8080/users/search/id/${userId}`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,

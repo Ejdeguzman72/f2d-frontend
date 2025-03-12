@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
   };
 
-  const retrieveEventData = async () => fetchData(`http://localhost:8082/events/search/id/${eventIdSearchParam}`);
+  const retrieveEventData = async () => fetchData(`http://192.168.1.54:8082/events/search/id/${eventIdSearchParam}`);
 
   const paginate = (data, page) => data.slice((page - 1) * pageSize, page * pageSize);
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           const listItem = document.createElement("li");
 
           try {
-              const response = await fetch(`http://localhost:8080/users/search/id/${userId}`, {
+              const response = await fetch(`http://192.168.1.54:8080/users/search/id/${userId}`, {
                   method: "GET",
                   headers: {
                       "Authorization": `Bearer ${token}`,
