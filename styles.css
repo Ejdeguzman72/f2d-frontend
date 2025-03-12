@@ -605,6 +605,102 @@ input:focus {
    /* Darker blue on hover */
 }
 
+#eventDetailsContainer {
+   width: 100%;
+   /* Ensure responsiveness */
+   padding: 30px;
+   background: #343434;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   font-size: 30px;
+   color: white;
+   border: 1px solid white;
+   margin: 20px;
+}
+
+#eventDetailsContainer .header {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 15px;
+   color: #007bff;
+}
+
+#eventDetailsContainer .label {
+   font-size: 14px;
+   color: gray;
+   margin-top: 10px;
+}
+
+#eventDetailsContainer .value {
+   font-size: 16px;
+   font-weight: 600;
+   color: white;
+   margin-top: 5px;
+}
+
+/* Main container */
+#eventDetailsContainer .container {
+   display: flex;
+   height: 100vh;
+}
+
+#eventDetailsContainer ul {
+   list-style-type: none;
+   /* Removes bullet points */
+   padding: 0;
+   /* Removes default padding */
+   margin: 0;
+   /* Removes default margin */
+}
+
+#eventUsersContainer {
+   width: 100%;
+   /* Ensure responsiveness */
+   padding: 30px;
+   background: #343434;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   font-size: 30px;
+   color: white;
+   border: 1px solid white;
+   margin: 20px;
+}
+
+#eventUsersContainer .header {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 15px;
+   color: #007bff;
+}
+
+#eventUsersContainer .label {
+   font-size: 14px;
+   color: gray;
+   margin-top: 10px;
+}
+
+#eventUsersContainer .value {
+   font-size: 16px;
+   font-weight: 600;
+   color: white;
+   margin-top: 5px;
+}
+
+/* Main container */
+#eventUsersContainer .container {
+   display: flex;
+   height: 100vh;
+}
+
+#eventUsersContainer ul {
+   list-style-type: none;
+   /* Removes bullet points */
+   padding: 0;
+   /* Removes default padding */
+   margin: 0;
+   /* Removes default margin */
+}
+
 /* Profile Section Styling */
 .profile-section {
    padding: 40px 20px;
