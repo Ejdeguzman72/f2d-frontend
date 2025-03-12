@@ -582,6 +582,24 @@ input:focus {
    /* Smooth background transition */
 }
 
+.event-btn {
+   display: inline-block;
+   /* Ensures the button appears inline */
+   /* padding: 8px; */
+   /* Padding for button */
+   background: #007bff;
+   /* Button background color */
+   color: #fff;
+   /* Button text color */
+   text-decoration: none;
+   /* Remove underline from links */
+   border-radius: 5px;
+   padding: 10px;
+   /* Rounded corners for the button */
+   /* transition: background 0.3s ease; */
+   /* Smooth background transition */
+}
+
 .event-item .btn:hover {
    background: #0056b3;
    /* Darker blue on hover */

@@ -77,10 +77,7 @@ class EventListRenderer {
         eventItem.classList.add('event-item');
         console.log(eventDetails);
 
-        // Ensure attendees is an array, even if empty or undefined
         const attendees = Array.isArray(eventDetails.attendees) ? eventDetails.attendees : [];
-
-        // Check if the current user is in the attendees list
         const isParticipant = attendees.includes(currentUserId);
 
         eventItem.innerHTML = `
@@ -89,22 +86,21 @@ class EventListRenderer {
             <p>Description: ${eventDetails.description}</p>
             <p>Date: ${eventDetails.eventDate}</p>
             <p>Group: ${eventDetails.f2dGroup.groupName}</p>
-            <button><a href="events-info-page.html?eventId=${eventDetails.eventId}" class="btn">View Event</a></button>
-            <button class="btn" id="event-btn-${eventDetails.eventId}">${isParticipant ? 'Leave Event' : 'Join Event'}</button>
+            <button class="event-btn" onclick="window.location.href='events-info-page.html?eventId=${eventDetails.eventId}'">View Event</button>
+            <button class="event-btn" data-event-id="${eventDetails.eventId}">${isParticipant ? 'Leave Event' : 'Join Event'}</button>
         `;
 
-        const eventButton = eventItem.querySelector(`#event-btn-${eventDetails.eventId}`);
-
+        const eventButton = eventItem.querySelector(`.event-btn`);
         eventButton.addEventListener('click', async () => {
             if (eventButton.textContent === "Join Event") {
                 await this.updateEventParticipation(eventDetails, currentUserId, "add");
-                eventButton.textContent = "Leave Event";
             } else {
                 await this.updateEventParticipation(eventDetails, currentUserId, "remove");
-                eventButton.textContent = "Join Event";
             }
 
-            // Optionally, reload the event list or update the UI after the action
+            // Reload event data and UI after the update
+            await this.loadEventData();
+            this.renderEvents(currentUserId);
         });
 
         return eventItem;
@@ -114,22 +110,18 @@ class EventListRenderer {
         console.log(`${action === "add" ? "Joining" : "Leaving"} event - ${eventDetails.eventName}`);
 
         try {
-            // Ensure attendees is an array, even if empty or undefined
             const attendees = Array.isArray(eventDetails.attendees) ? eventDetails.attendees : [];
 
             const updatedParticipants = action === "add"
-                ? [...attendees, currentUserId]
+                ? [...new Set([...attendees, currentUserId])]
                 : attendees.filter(id => id !== currentUserId);
 
             const requestBody = {
-                eventId: eventDetails.eventId,
-                eventName: eventDetails.eventName,
-                eventType: eventDetails.eventType,
-                description: eventDetails.description,
-                eventDate: eventDetails.eventDate,
-                f2dGroup: eventDetails.f2dGroup,
+                ...eventDetails,
                 attendees: updatedParticipants
             };
+
+            console.log("Updated Request Body:", JSON.stringify(requestBody, null, 2));
 
             const response = await fetch(`http://localhost:8082/events/update/${eventDetails.eventId}`, {
                 method: 'PUT',
@@ -170,7 +162,7 @@ class EventListRenderer {
         const currentEvents = this.allEvents.slice(startIndex, endIndex);
 
         currentEvents.forEach(event => {
-            const eventItem = this.createEventItem(event, userId); // Ensure isParticipant is checked here
+            const eventItem = this.createEventItem(event, userId);
             eventListContainer.appendChild(eventItem);
         });
 
