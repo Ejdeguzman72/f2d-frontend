@@ -19,8 +19,8 @@ html {
    height: 100vh;
    /* padding: 30px; */
    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(15px) saturate(120%);
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+   backdrop-filter: blur(15px) saturate(120%);
 }
 
 /* Login form styling */
@@ -93,36 +93,47 @@ button:hover {
 
 /* Modal container */
 .modal {
-   display: none; /* Hidden by default */
-   position: fixed; /* Stay in place */
-   z-index: 1000; /* Sit on top */
+   display: none;
+   /* Hidden by default */
+   position: fixed;
+   /* Stay in place */
+   z-index: 1000;
+   /* Sit on top */
    left: 0;
    top: 0;
-   width: 100%; /* Full width */
-   height: 100%; /* Full height */
-   overflow: auto; /* Enable scroll if needed */
-   background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+   width: 100%;
+   /* Full width */
+   height: 100%;
+   /* Full height */
+   overflow: auto;
+   /* Enable scroll if needed */
+   background-color: rgba(0, 0, 0, 0.5);
+   /* Black w/ opacity */
 }
 
 /* Modal content box */
 .add-modal-content {
    background-color: #fefefe;
-   margin: 10% auto; /* 10% from the top and centered */
+   margin: 10% auto;
+   /* 10% from the top and centered */
    padding: 20px;
    border: 1px solid #888;
    border-radius: 8px;
-   width: 50%; /* Width of the modal */
+   width: 50%;
+   /* Width of the modal */
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   animation: fadeIn 0.3s; /* Optional fade-in animation */
+   animation: fadeIn 0.3s;
+   /* Optional fade-in animation */
 }
 
-.add-modal-content h2{
+.add-modal-content h2 {
    background-color: #000;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 10px;;
+   color: white;
+   text-align: center;
+   padding: 20px;
+   margin: 10px;
+   border-radius: 10px;
+   ;
 }
 
 /* Close button (X) */
@@ -161,7 +172,8 @@ input:focus {
 .modal-body .input,
 .modal-body .textarea,
 .modal-body select {
-   width: calc(100% - 20px); /* Fill the modal width, with padding adjustment */
+   width: calc(100% - 20px);
+   /* Fill the modal width, with padding adjustment */
    padding: 10px;
    margin: 10px 0;
    border: 1px solid #ccc;
@@ -189,10 +201,11 @@ input:focus {
 /* Modal fade-in animation */
 @keyframes fadeIn {
    from {
-       opacity: 0;
+      opacity: 0;
    }
+
    to {
-       opacity: 1;
+      opacity: 1;
    }
 }
 
@@ -340,11 +353,16 @@ input:focus {
    left: 0;
    right: 0;
    bottom: 0;
-   background: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
-   z-index: 1; /* Place overlay below text */
+   background: rgba(0, 0, 0, 0.5);
+   /* Dark overlay with 50% opacity */
+   z-index: 1;
+   /* Place overlay below text */
 }
-.hero-section h1, .hero-section p {
-   position: relative; /* Make sure text stays above overlay */
+
+.hero-section h1,
+.hero-section p {
+   position: relative;
+   /* Make sure text stays above overlay */
    z-index: 2;
 }
 
@@ -711,7 +729,8 @@ input:focus {
 }
 
 #groupDetailsContainer {
-   width: 100%; /* Ensure responsiveness */
+   width: 100%;
+   /* Ensure responsiveness */
    padding: 30px;
    background: #343434;
    border-radius: 8px;
@@ -727,18 +746,20 @@ input:focus {
    font-weight: bold;
    margin-bottom: 15px;
    color: #007bff;
- }
- #groupDetailsContainer .label {
+}
+
+#groupDetailsContainer .label {
    font-size: 14px;
    color: gray;
    margin-top: 10px;
- }
- #groupDetailsContainer .value {
+}
+
+#groupDetailsContainer .value {
    font-size: 16px;
    font-weight: 600;
    color: white;
    margin-top: 5px;
- }
+}
 
 /* Main container */
 #groupDetailsContainer .container {
@@ -762,18 +783,20 @@ input:focus {
    font-weight: bold;
    margin-bottom: 15px;
    color: #007bff;
- }
- #groupEventsContainer .label {
+}
+
+#groupEventsContainer .label {
    font-size: 14px;
    color: gray;
    margin-top: 10px;
- }
- #groupEventsContainer .value {
+}
+
+#groupEventsContainer .value {
    font-size: 16px;
    font-weight: 600;
    color: white;
    margin-top: 5px;
- }
+}
 
 /* Main container */
 #groupEventsContainer .container {
@@ -797,18 +820,20 @@ input:focus {
    font-weight: bold;
    margin-bottom: 15px;
    color: #007bff;
- }
- #groupEventgroupMessagesContainersContainer .label {
+}
+
+#groupEventgroupMessagesContainersContainer .label {
    font-size: 14px;
    color: gray;
    margin-top: 10px;
- }
- #groupMessagesContainer .value {
+}
+
+#groupMessagesContainer .value {
    font-size: 20px;
    font-weight: 600;
    color: white;
    margin-top: 5px;
- }
+}
 
 /* Main container */
 #groupMessagesContainer .container {
@@ -816,6 +841,53 @@ input:focus {
    height: 100vh;
 }
 
+#groupUsersContainer {
+   width: 100%;
+   /* Ensure responsiveness */
+   padding: 30px;
+   background: #343434;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   font-size: 30px;
+   color: white;
+   border: 1px solid white;
+   margin: 20px;
+}
+
+#groupUsersContainer .header {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 15px;
+   color: #007bff;
+}
+
+#groupUsersContainer .label {
+   font-size: 14px;
+   color: gray;
+   margin-top: 10px;
+}
+
+#groupUsersContainer .value {
+   font-size: 16px;
+   font-weight: 600;
+   color: white;
+   margin-top: 5px;
+}
+
+/* Main container */
+#groupUsersContainer .container {
+   display: flex;
+   height: 100vh;
+}
+
+#groupUsersContainer ul {
+   list-style-type: none;
+   /* Removes bullet points */
+   padding: 0;
+   /* Removes default padding */
+   margin: 0;
+   /* Removes default margin */
+}
 
 /* Blog Header */
 .blog-header {

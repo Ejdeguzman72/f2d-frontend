@@ -38,7 +38,7 @@ class GroupRenderer {
             }
 
             console.log("Token is valid. Fetching user details...");
-            const response = await fetch(`http://192.168.1.54:8080/users/search/username/${username}`, {
+            const response = await fetch(`http://localhost:8080/users/search/username/${username}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${this.token}`,
@@ -125,7 +125,7 @@ class GroupRenderer {
                 userIdSet: updatedUserIdSet
             };
 
-            const response = await fetch(`http://192.168.1.54:8081/groups/update/${group.groupId}`, {
+            const response = await fetch(`http://localhost:8081/groups/update/${group.groupId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${this.token}`,
@@ -215,7 +215,7 @@ class GroupRenderer {
 }
 
 new GroupRenderer(
-    'http://192.168.1.54:8081/groups/all',
+    'http://localhost:8081/groups/all',
     '.group-list',
     '#pagination'
 );

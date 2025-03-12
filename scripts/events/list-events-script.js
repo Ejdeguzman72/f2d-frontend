@@ -37,7 +37,7 @@ class EventListRenderer {
             }
 
             console.log("Token is valid. Fetching user details...");
-            const response = await fetch(`http://192.168.1.54:8080/users/search/username/${username}`, {
+            const response = await fetch(`http://localhost:8080/users/search/username/${username}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${this.token}`,
@@ -131,7 +131,7 @@ class EventListRenderer {
                 attendees: updatedParticipants
             };
 
-            const response = await fetch(`http://192.168.1.54:8082/events/update/${eventDetails.eventId}`, {
+            const response = await fetch(`http://localhost:8082/events/update/${eventDetails.eventId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${this.token}`,
@@ -221,7 +221,7 @@ class EventListRenderer {
 }
 
 new EventListRenderer(
-    'http://192.168.1.54:8082/events/all',
+    'http://localhost:8082/events/all',
     '.event-list',
     '#pagination'
 );

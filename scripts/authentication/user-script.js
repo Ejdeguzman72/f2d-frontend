@@ -21,7 +21,7 @@ async function getUserDetailsFromJWT() {
         console.log("Token is valid. Fetching user details...");
         const username = decoded.sub;
 
-        const response = await fetch(`http://192.168.1.54:8080/users/search/username/${username}`, {
+        const response = await fetch(`http://localhost:8080/users/search/username/${username}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
